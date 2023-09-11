@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ForTwo</string>
+    <string name="facebook_app_id">233935156297239</string>
+    <string name="facebook_client_token">48a5d871ce2a6091fba5c71e3a8a291f</string>
+    <string name="fb_login_protocol_scheme">fb233935156297239</string>
+</resources>

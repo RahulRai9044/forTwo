@@ -1,0 +1,74 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:for_two/modules/auth/view/login_screen.dart';
+import 'package:for_two/modules/dashboard/view/dashboard_screen.dart';
+import 'package:for_two/prefrenceData/app_prefrence.dart';
+import 'package:for_two/utils/size.dart';
+import 'package:get/get.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashState();
+}
+
+class _SplashState extends State<SplashScreen> {
+  final Prefrence _prefs = Prefrence();
+
+  @override
+  void initState() {
+    super.initState();
+    autoLogin();
+  }
+
+  autoLogin() async {
+    String? userDetail = await _prefs.getUserId();
+    if (userDetail != null) {
+      Timer(const Duration(seconds: 10), () {
+        Get.offAll(() => DashboardScreen());
+      });
+    } else {
+      Timer(const Duration(seconds: 10), () {
+        Get.offAll(() => const LoginScreen());
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/images/app_icon.png",
+            height: size.height * 0.4,
+            width: size.height * 0.4,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text(
+            "A space for you both",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.black54,fontSize: 15),
+          ),
+          SizedBox(
+            height: size.height * 0.1,
+          ),
+          const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDF1721)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

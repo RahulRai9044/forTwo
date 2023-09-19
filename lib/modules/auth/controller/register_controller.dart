@@ -34,6 +34,12 @@ class RegisterController extends GetxController {
   String? patientID = '';
   bool? isChecked = false;
   String? userData;
+  String? gender;
+  // Default Radio Button Selected Item When App Starts.
+  String radioButtonItem = 'ONE';
+
+  // Group Value for Radio Button.
+  int id = 1;
 
   CollectionReference mUserFirebaseInstance = FirebaseFirestore.instance.collection('userData');
 

@@ -59,18 +59,25 @@ class InputTextField extends StatelessWidget {
           readOnly: readOnly,
           validator: validator,
           decoration: InputDecoration(
-            hintText: hintText,
-            filled: true,
-            fillColor: kSecondaryColor,
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6.0),
-              borderSide: BorderSide.none,
-            ),
-            suffixIcon: IconButton(
-              icon: Icon(icon),
-              onPressed: onTap,
+            isDense: true,
+              filled: false,
+              contentPadding: EdgeInsets.symmetric(vertical: 5), // adjust as you need
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+              ),
+
+            suffixIcon: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: IconButton(
+                icon: Icon(icon),
+                onPressed: onTap,
+              ),
             ),
           ),
         ),

@@ -32,7 +32,6 @@ class CustomToolbar extends StatelessWidget{
                         : false,
                     position:
                     badge.BadgePosition.topEnd(top: 0, end: 1),
-                    animationType: badge.BadgeAnimationType.scale,
                     badgeContent: null,
                     child: Icon(Icons.notifications_on),
                   )),

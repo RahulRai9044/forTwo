@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +10,7 @@ import 'package:for_two/prefrenceData/app_prefrence.dart';
 import 'package:for_two/utils/app_utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
   final Prefrence mPrefs = Prefrence();
@@ -159,6 +159,9 @@ class LoginController extends GetxController {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     loginFormKey = GlobalKey<FormState>();
+
+   // ifUserIsLoggedIn();
+
   }
 
 
@@ -169,10 +172,6 @@ class LoginController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
   }
-
-
-
-
 
 
   bool _userLoginAutoValidate=false;
@@ -222,7 +221,7 @@ class LoginController extends GetxController {
 
   AccessToken? _accessToken;
   Map<String, dynamic>? _userData;
-
+  bool? _checking = true;
 
   loginFacebook() async {
     final LoginResult loginResult = await FacebookAuth.instance.login();
@@ -237,6 +236,74 @@ class LoginController extends GetxController {
       print('ResultStatus: ${loginResult.status}');
       print('Message: ${loginResult.message}');
     }
+  }
+
+
+  ifUserIsLoggedIn() async {
+    final accessToken = await FacebookAuth.instance.accessToken;
+
+      _checking = false;
+
+    if (accessToken != null) {
+      final userData = await FacebookAuth.instance.getUserData();
+      _accessToken = accessToken;
+
+      print(_accessToken);
+      print("rahulToken");
+      _userData = userData;
+      print(_userData);
+      print("rahulData");
+
+    } else {
+      loginFacebook();
+    }
+  }
+
+
+  late User _user;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  bool isSignIn =false;
+  bool google =false;
+
+  Future<String?> signInWithGoogle(LoginController model) async {
+    //  model.state =ViewState.Busy;
+
+    GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+
+    GoogleSignInAuthentication googleSignInAuthentication =
+
+    await googleSignInAccount!.authentication;
+
+    AuthCredential credential = GoogleAuthProvider.credential(
+
+      accessToken: googleSignInAuthentication.accessToken,
+
+      idToken: googleSignInAuthentication.idToken,
+
+    );
+
+    UserCredential authResult = await _auth.signInWithCredential(credential);
+
+    _user = authResult.user!;
+
+    assert(!_user.isAnonymous);
+
+    assert(await _user.getIdToken() != null);
+
+    User currentUser = await _auth.currentUser!;
+
+    assert(_user.uid == currentUser.uid);
+
+
+    //model.state =ViewState.Idle;
+
+    print("User Name: ${_user.displayName}");
+    print("User Email ${_user.email}");
+
+    return _user.displayName;
+
   }
 
 }

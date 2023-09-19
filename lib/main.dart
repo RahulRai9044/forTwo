@@ -46,9 +46,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       home: const SplashScreen(),
-      // home: OTPScreen(),
       debugShowCheckedModeBanner: false,
-      //  initialBinding: RootBindings(),
+     // initialBinding: RootBindings(),
       builder: EasyLoading.init(),
       theme: themeData(),
       defaultTransition: Transition.fade,

@@ -6,12 +6,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_two/modules/auth/controller/register_controller.dart';
 import 'package:for_two/modules/auth/view/login_screen.dart';
 import 'package:for_two/modules/auth/widget/common_elevated_button.dart';
+import 'package:for_two/modules/auth/widget/common_text.dart';
 import 'package:for_two/modules/auth/widget/input_textfield.dart';
+import 'package:for_two/modules/auth/widget/registration_top_gradient.dart';
 import 'package:for_two/utils/app_theme.dart';
 import 'package:for_two/utils/app_utils.dart';
 import 'package:for_two/utils/size.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -25,48 +26,23 @@ class RegisterScreen extends StatelessWidget {
             init: RegisterController(),
             builder: (controller) {
               return SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    top: 16,
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                  child: Column(
-                    children: [
+                child: Column(
+                  children: [
+                    RegistrationTopGradient(),
+                    SizedBox(height: size.height * 0.04),
 
-                      SizedBox(height: size.height * 0.04),
-
-                      Image.asset(
-                        "assets/images/app_icon.png",
-                        height: size.height * 0.15,
-                        width: size.width * 0.4,
-                      ),
-
-                      SizedBox(height: size.height * 0.02),
-
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Register Me !!",
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                      ),
-                      // const SizedBox(height: 5),
-                      // Text(
-                      //   "Please fill all the required details to get register into the App",
-                      //   style: Theme.of(context).textTheme.bodyText2,
-                      // ),
-                      const SizedBox(height: 20.0),
-                      Form(
+                    const SizedBox(height: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Form(
                         key: controller.formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
                             InputTextField(
-                                textColors: kBlackColor,
-                                text: 'Name*',
+                                textColors: kTextColor,
+                                text: 'Full Name',
                                 controller: controller.userNameController,
                                 inputType: TextInputType.name,
                                 validator: (value) {
@@ -79,8 +55,8 @@ class RegisterScreen extends StatelessWidget {
 
 
                             InputTextField(
-                                textColors: kBlackColor,
-                                text: 'Phone Number *',
+                                textColors: kTextColor,
+                                text: 'Email',
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(10)
                                 ],
@@ -96,8 +72,8 @@ class RegisterScreen extends StatelessWidget {
 
 
                             InputTextField(
-                              textColors: kBlackColor,
-                              text: "Email*",
+                              textColors: kTextColor,
+                              text: "Phone Number",
                               controller: controller.emailController,
                               inputType: TextInputType.emailAddress,
                               validator: (value) {
@@ -111,6 +87,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
 
                             const SizedBox(height: 20),
+
                             Row(
                               children: [
                                 Flexible(
@@ -119,10 +96,63 @@ class RegisterScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       InputTextField(
-                                        textColors: kBlackColor,
-                                        text: "Password*",
+                                        textColors: kTextColor,
+                                        text: "Country",
                                         controller:
                                             controller.passwordController,
+                                        inputType: TextInputType.text,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Required*';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      InputTextField(
+                                        textColors: kTextColor,
+                                        text: "City",
+                                        controller: controller
+                                            .confirmPasswordController,
+                                        inputType: TextInputType.text,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Required*';
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            const SizedBox(height: 20),
+
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      InputTextField(
+                                        textColors: kTextColor,
+                                        text: "Password*",
+                                        controller:
+                                        controller.passwordController,
                                         inputType: TextInputType.text,
                                         isVisible: controller.isObsecure,
                                         icon: controller.isObsecure
@@ -145,10 +175,10 @@ class RegisterScreen extends StatelessWidget {
                                 Flexible(
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       InputTextField(
-                                        textColors: kBlackColor,
+                                        textColors: kTextColor,
                                         text: "Confirm Password*",
                                         controller: controller
                                             .confirmPasswordController,
@@ -175,57 +205,103 @@ class RegisterScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                      Visibility(
-                        visible: false,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              activeColor: kPrimaryColor,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              side: BorderSide(color: kPrimaryColor!, width: 2),
-                              checkColor: Colors.white,
-                              value: controller.isChecked,
-                              onChanged: controller.toggleCheckBox,
+
+                            const SizedBox(height: 20),
+                            CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Gender'),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: 1,
+                                      groupValue: controller.id,
+                                      onChanged: (val) {
+
+                                        controller.radioButtonItem = 'female';
+                                          controller.id = 1;
+                                        controller.update();
+                                      },
+                                    ),
+
+                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Female'),
+
+                                  ],
+                                ),
+
+
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: 2,
+                                      groupValue: controller.id,
+                                      onChanged: (val) {
+                                          controller.radioButtonItem = 'male';
+                                          controller.id = 2;
+                                          controller.update();
+                                      },
+                                    ),
+
+                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Male'),
+                                  ],
+                                ),
+
+
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: 3,
+                                      groupValue: controller.id,
+                                      onChanged: (val) {
+
+                                          controller.radioButtonItem = 'other';
+                                          controller.id = 3;
+                                          controller.update();
+
+                                      },
+                                    ),
+                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Other'),
+                                  ],
+                                ),
+
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: 3,
+                                      groupValue: controller.id,
+                                      onChanged: (val) {
+
+                                        controller.radioButtonItem = 'pnots';
+                                        controller.id = 3;
+                                        controller.update();
+
+                                      },
+
+                                    ),
+
+                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Prefer not to say'),
+                                  ],
+                                ),
+
+
+                              ],
                             ),
-                            RichText(
-                                text: TextSpan(
-                                    text: "I agree to terms and conditions and",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2
-                                        ?.copyWith(
-                                            fontSize: 12,
-                                            color: kBlackColor?.withOpacity(0.8)),
-                                    children: [
-                                  TextSpan(
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
 
-                                          launchUrl(Uri.parse('https://app.houstonepilepsy.com/privacy-policy'), mode: LaunchMode.platformDefault);
 
-                                        },
-                                      text: "Privacy Policy",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2
-                                          ?.copyWith(
-                                              fontSize: 14,
-                                              color: kPrimaryColor))
-                                ]))
                           ],
                         ),
                       ),
+                    ),
+
+                    SizedBox(height: size.height * 0.1),
 
 
-                      SizedBox(height: size.height * 0.1),
-
-
-                      CommonElevatedButton(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                      child: CommonElevatedButton(
+                        height: size.height * 0.05,
+                        width: size.width * 1.0,
                         title: 'Register',
                         onTap: controller.isChecked == true
                             ? () {
@@ -256,32 +332,32 @@ class RegisterScreen extends StatelessWidget {
                                 }
                               },
                       ),
-                      const SizedBox(height: 10.0),
-                      RichText(
-                        text: TextSpan(
-                            text: "Already have an account?",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(
-                                    color: kBlackColor),
-                            children: [
-                              TextSpan(
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Get.off(() => const LoginScreen());
-                                    },
-                                  text: " Sign In",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2
-                                      ?.copyWith(
-                                          fontSize: 15, color: kPrimaryColor))
-                            ]),
-                      ),
-                      const SizedBox(height: 10),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 10.0),
+                    RichText(
+                      text: TextSpan(
+                          text: "Already have an account?",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              ?.copyWith(
+                                  color: kBlackColor),
+                          children: [
+                            TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Get.off(() => const LoginScreen());
+                                  },
+                                text: " Sign In",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(
+                                        fontSize: 15, color: kPrimaryColor))
+                          ]),
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                 ),
               );
             }),

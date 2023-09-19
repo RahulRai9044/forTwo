@@ -3,12 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_two/modules/auth/controller/login_controller.dart';
-import 'package:for_two/modules/auth/google_sign_in/google_sign_in.dart';
-import 'package:for_two/modules/auth/view/facebook_login.dart';
 import 'package:for_two/modules/auth/view/forgot_password_view.dart';
 import 'package:for_two/modules/auth/view/register_screen.dart';
+import 'package:for_two/modules/auth/widget/common_text.dart';
 import 'package:for_two/modules/auth/widget/email_form_field.dart';
 import 'package:for_two/modules/auth/widget/password_form_field.dart';
+import 'package:for_two/modules/dashboard/view/dashboard_screen.dart';
 import 'package:for_two/utils/app_theme.dart';
 import 'package:for_two/utils/size.dart';
 import 'package:get/get.dart';
@@ -27,12 +27,12 @@ class LoginScreen extends StatelessWidget {
             builder: (controller) {
               return SingleChildScrollView(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                     EdgeInsets.symmetric(horizontal: size.width * 0.08, vertical: size.height * 0.02),
                 child: Column(
                   children: [
                     SizedBox(height: size.height * 0.1),
                     Image.asset(
-                      "assets/images/app_icon.png",
+                      "assets/images/login_image.png",
                       height: size.height * 0.2,
                       width: size.width * 0.4,
                     ),
@@ -42,17 +42,13 @@ class LoginScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Email*",
-                          ),
+                          CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Email ID'),
                           const SizedBox(height: 10),
                           EmailFormField(
                             controller: controller.emailController,
                           ),
-                          const SizedBox(height: 20),
-                          const Text(
-                            "Password*",
-                          ),
+                          const SizedBox(height: 30),
+                          CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Password'),
                           const SizedBox(height: 10),
                           PasswordFormField(
                             controller: controller.passwordController,
@@ -66,12 +62,13 @@ class LoginScreen extends StatelessWidget {
                                 onPressed: () {
                                   Get.to(() => const ForgotPasswordView());
                                 },
-                                child: const Text(
-                                  'Forgot Password',
+                                child:  Text(
+                                  'Forgot Password ?',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     decoration: TextDecoration.underline,
+                                    color: kTextColorRed,
                                   ),
                                 )),
                           ),
@@ -80,13 +77,18 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * 0.06),
                     CommonElevatedButton(
-                      title: 'Sign In',
+                      height: size.height * 0.05,
+                      width: size.width * 1.0,
+                      title: 'Login',
                       onTap: () async {
-                        if (controller.loginFormKey.currentState!.validate()) {
+                       /* if (controller.loginFormKey.currentState!.validate()) {
                           EasyLoading.show(status: 'Sign In');
                           await controller.signInUserWithEmailAndPassword(email: controller.emailController.text,password: controller.passwordController.text);
                           EasyLoading.dismiss();
-                        }
+                        }*/
+
+                        Get.offAll(() => DashboardScreen());
+
                       },
                     ),
                      SizedBox(height: size.height * 0.05),
@@ -123,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                            Get.offAll(() =>  GoogleLoginScreen());
+                            controller.signInWithGoogle(controller);
 
                           },
                         ),

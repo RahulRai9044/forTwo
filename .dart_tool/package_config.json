@@ -21,9 +21,9 @@
     },
     {
       "name": "badges",
-      "rootUri": "file:///Users/rahulrai/.pub-cache/hosted/pub.dev/badges-2.0.3",
+      "rootUri": "file:///Users/rahulrai/.pub-cache/hosted/pub.dev/badges-3.1.2",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "boolean_selector",
@@ -72,6 +72,12 @@
       "rootUri": "file:///Users/rahulrai/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.6",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "curved_navigation_bar",
+      "rootUri": "file:///Users/rahulrai/.pub-cache/hosted/pub.dev/curved_navigation_bar-1.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "date_format",
@@ -464,6 +470,24 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "sign_in_with_apple",
+      "rootUri": "file:///Users/rahulrai/.pub-cache/hosted/pub.dev/sign_in_with_apple-5.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "sign_in_with_apple_platform_interface",
+      "rootUri": "file:///Users/rahulrai/.pub-cache/hosted/pub.dev/sign_in_with_apple_platform_interface-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "sign_in_with_apple_web",
+      "rootUri": "file:///Users/rahulrai/.pub-cache/hosted/pub.dev/sign_in_with_apple_web-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/rahulrai/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -602,7 +626,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-09-11T14:16:49.264185Z",
+  "generated": "2023-09-19T13:16:58.685131Z",
   "generator": "pub",
   "generatorVersion": "3.1.0"
 }

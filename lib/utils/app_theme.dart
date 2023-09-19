@@ -6,7 +6,11 @@ Color? kBlackColor = const Color(0xFF0D0D0D);
 Color? kSecondaryColor = const Color(0xFFE2F5F6);
 Color? kTealColor = const Color(0XFF28B59D);
 Color? kOrangeAccentColor = const Color(0xFFFFD0B3);
-
+Color? kTextColor = const Color(0xFF616161);
+Color? kTextColorRed = const Color(0xFFF4517E);
+Color buttonFirstColor =  Color(0xFFEF3B85);
+Color buttonSecondColor =  Color(0xFFF01828);
+Color transparentColor =  Color(0x00FFFFFF);
 ThemeData themeData() {
   return ThemeData(
     fontFamily: 'Montserrat',

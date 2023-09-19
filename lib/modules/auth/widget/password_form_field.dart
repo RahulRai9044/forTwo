@@ -18,7 +18,7 @@ class PasswordFormField extends StatelessWidget {
       obscureText: isObsecure,
       keyboardType: TextInputType.text,
       cursorColor: Colors.black, // Only numbers can be entered
-      style: TextStyle(color: Colors.black.withOpacity(0.8)),
+      style: TextStyle(color: Colors.black.withOpacity(0.8),),
       validator: (value) {
         if (value!.isEmpty) {
           return 'Password can not be empty';
@@ -26,14 +26,17 @@ class PasswordFormField extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-        filled: true,
-        fillColor: const Color(0xFFE2F5F6),
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(6.0),
-          borderSide: BorderSide.none,
+        filled: false,
+        contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color:Color(0xFFDBDBDB)),
         ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+        ),
+        errorBorder:UnderlineInputBorder(
+          borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+        ) ,
         suffixIcon: IconButton(
           icon: Icon(
             isObsecure ? Icons.visibility_off : Icons.visibility,

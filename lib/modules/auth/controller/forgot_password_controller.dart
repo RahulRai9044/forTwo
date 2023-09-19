@@ -30,6 +30,12 @@ class ForgotPasswordController extends GetxController {
   bool isObsecure = true;
   bool isObsecureCNF = true;
   bool isResendOTP = false;
+  double current_opacity=0.4;
+  double current_opacity_reset=0.1;
+
+
+
+
 
   onTimerComplete() {
     isResendOTP = true;
@@ -44,6 +50,40 @@ class ForgotPasswordController extends GetxController {
   showPasswordCNF() {
     isObsecureCNF = !isObsecureCNF;
     update();
+  }
+
+ double checkEnteredEmail(String emails) {
+    var email = emails;
+    bool emailValid = RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(email);
+    print (emailValid); // true
+    if(emailValid){
+      current_opacity=1.0;
+      isOtpFieldVisible=true;
+      update();
+    }else{
+      isOtpFieldVisible=false;
+      current_opacity=0.4;
+      update();
+    }
+    return current_opacity;
+  }
+
+  double checkEnteredPassword(String emails) {
+    if(passwordController.text == emails){
+
+      current_opacity_reset=1.0;
+
+      update();
+      }else{
+
+      current_opacity_reset=0.1;
+
+      update();
+
+    }
+
+    return current_opacity_reset;
+
   }
 
   // resendOtp() async {

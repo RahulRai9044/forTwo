@@ -1,36 +1,42 @@
 
 import 'package:flutter/material.dart';
-import 'package:for_two/utils/app_theme.dart';
-import 'package:for_two/utils/size.dart';
 
 class CommonElevatedButton extends StatelessWidget {
   final String title;
   final Function() onTap;
+  final BorderRadiusGeometry? borderRadius;
+  final double? width;
+  final double? height;
+  final Gradient gradient;
 
   const CommonElevatedButton({
     Key? key,
     required this.onTap,
     required this.title,
+    this.borderRadius,
+    this.width,
+    this.height,
+    this.gradient = const LinearGradient(colors: [Color(0xFFEF3B85), Color(0xFFF01828)]),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: kPrimaryColor,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-        ),
-        fixedSize: Size(size.width, 50),
-        textStyle: TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.bold,
-          color: kWhiteColor,
-        ),
+    final borderRadius = this.borderRadius ?? BorderRadius.circular(20);
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        gradient: gradient,
+        borderRadius: borderRadius,
       ),
-      onPressed: onTap,
-      child: Text(
-        title,
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
+        child: Text(title,style: TextStyle(fontSize: 20),),
       ),
     );
   }

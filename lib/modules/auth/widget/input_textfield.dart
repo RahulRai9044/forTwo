@@ -50,6 +50,7 @@ class InputTextField extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         TextFormField(
+          textAlignVertical: TextAlignVertical.bottom,
           inputFormatters: inputFormatters,
           onTap: onPressed,
           onChanged: onChange,
@@ -59,7 +60,7 @@ class InputTextField extends StatelessWidget {
           readOnly: readOnly,
           validator: validator,
           decoration: InputDecoration(
-            isDense: true,
+              isDense: true,
               filled: false,
               contentPadding: EdgeInsets.symmetric(vertical: 5), // adjust as you need
               errorBorder: UnderlineInputBorder(
@@ -71,6 +72,10 @@ class InputTextField extends StatelessWidget {
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color:Color(0xFFDBDBDB)),
               ),
+            suffixIconConstraints: BoxConstraints(
+              minWidth: 2,
+              minHeight: 2,
+            ),
 
             suffixIcon: Padding(
               padding: const EdgeInsets.all(0.0),

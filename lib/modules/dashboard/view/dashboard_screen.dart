@@ -36,9 +36,10 @@ class DashboardScreen extends StatelessWidget{
         onTap: controller.changeTabIndex,
         animationCurve: Curves.easeInCirc,
         items: const [
-            Icon(Icons.add, size: 30),
-            Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
+            Icon(Icons.home, size: 30,color: Colors.white,),
+            Icon(Icons.star, size: 30,color: Colors.white,),
+            Icon(Icons.calendar_today, size: 30,color: Colors.white,),
+            Icon(Icons.auto_graph, size: 30,color: Colors.white,),
         ],
     )
         : CupertinoTabScaffold(
@@ -52,7 +53,7 @@ class DashboardScreen extends StatelessWidget{
             currentIndex: controller.tabIndex,
             items: const [
               BottomNavigationBarItem(
-                label: "Invited",
+                label: "Home",
                 icon: Icon(Icons.insert_invitation),
               ),
               BottomNavigationBarItem(

@@ -1,10 +1,10 @@
 -- Merging decision tree log ---
 application
 INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main/AndroidManifest.xml:11:5-65:19
-MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
-MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
 MERGED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
 MERGED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
+MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
+MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
 MERGED from [:firebase_messaging] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-48:19
 MERGED from [:firebase_messaging] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-48:19
 MERGED from [:firebase_core] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
@@ -13,10 +13,10 @@ MERGED from [:flutter_local_notifications] /Users/rahulrai/AndroidStudioProjects
 MERGED from [:flutter_local_notifications] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:5-32:19
 MERGED from [:url_launcher_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-14:19
 MERGED from [:url_launcher_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-14:19
-MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
-MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
 MERGED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/caches/transforms-3/eadbf300a40ae8a73848ff970848fe74/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:28:5-73:19
 MERGED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/caches/transforms-3/eadbf300a40ae8a73848ff970848fe74/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:28:5-73:19
+MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
 MERGED from [com.google.firebase:firebase-iid:21.1.0] /Users/rahulrai/.gradle/caches/transforms-3/77bdb4432be343bb995d94dd298a1eae/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:28:5-36:19
 MERGED from [com.google.firebase:firebase-iid:21.1.0] /Users/rahulrai/.gradle/caches/transforms-3/77bdb4432be343bb995d94dd298a1eae/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:28:5-36:19
 MERGED from [com.google.firebase:firebase-firestore:24.7.0] /Users/rahulrai/.gradle/caches/transforms-3/37575b3304fce6d31c2369bf44301a8e/transformed/jetified-firebase-firestore-24.7.0/AndroidManifest.xml:15:5-23:19
@@ -81,9 +81,8 @@ INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main
 INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main/AndroidManifest.xml:1:1-68:12
 INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main/AndroidManifest.xml:1:1-68:12
 MERGED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main/AndroidManifest.xml:1:1-68:12
-MERGED from [:shared_preferences_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-17:12
 MERGED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-17:12
+MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-17:12
 MERGED from [:firebase_messaging] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-50:12
 MERGED from [:firebase_core] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-17:12
 MERGED from [:sign_in_with_apple] /Users/rahulrai/AndroidStudioProjects/for_two/build/sign_in_with_apple/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -92,10 +91,12 @@ MERGED from [:url_launcher_android] /Users/rahulrai/AndroidStudioProjects/for_tw
 MERGED from [:google_sign_in_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/google_sign_in_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:flutter_secure_storage] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_secure_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:flutter_facebook_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_facebook_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/5a5a752a30ef8f927b89ee5d02868eb5/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:17:1-23:12
-MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:17:1-33:12
+MERGED from [:shared_preferences_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:flutter_keyboard_visibility] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_keyboard_visibility/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/caches/transforms-3/eadbf300a40ae8a73848ff970848fe74/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:17:1-75:12
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] /Users/rahulrai/.gradle/caches/transforms-3/c10a03062000eef8f595c02bee1acdc7/transformed/jetified-recaptcha-18.1.2/AndroidManifest.xml:2:1-10:12
+MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/5a5a752a30ef8f927b89ee5d02868eb5/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:17:1-33:12
 MERGED from [com.google.firebase:firebase-iid:21.1.0] /Users/rahulrai/.gradle/caches/transforms-3/77bdb4432be343bb995d94dd298a1eae/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:17:1-38:12
 MERGED from [com.google.firebase:firebase-firestore:24.7.0] /Users/rahulrai/.gradle/caches/transforms-3/37575b3304fce6d31c2369bf44301a8e/transformed/jetified-firebase-firestore-24.7.0/AndroidManifest.xml:2:1-25:12
 MERGED from [com.google.firebase:firebase-messaging:23.2.0] /Users/rahulrai/.gradle/caches/transforms-3/a89e5d8e47efe077725995554c7d66c0/transformed/jetified-firebase-messaging-23.2.0/AndroidManifest.xml:17:1-61:12
@@ -223,12 +224,10 @@ uses-sdk
 INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main/AndroidManifest.xml
 INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main/AndroidManifest.xml
-MERGED from [:shared_preferences_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:shared_preferences_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_messaging] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_messaging] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_core] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
@@ -245,14 +244,18 @@ MERGED from [:flutter_secure_storage] /Users/rahulrai/AndroidStudioProjects/for_
 MERGED from [:flutter_secure_storage] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_secure_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:6:5-9:53
 MERGED from [:flutter_facebook_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_facebook_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_facebook_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_facebook_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/5a5a752a30ef8f927b89ee5d02868eb5/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
-MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/5a5a752a30ef8f927b89ee5d02868eb5/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
-MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
+MERGED from [:shared_preferences_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_keyboard_visibility] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_keyboard_visibility/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_keyboard_visibility] /Users/rahulrai/AndroidStudioProjects/for_two/build/flutter_keyboard_visibility/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/caches/transforms-3/eadbf300a40ae8a73848ff970848fe74/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:21:5-23:64
 MERGED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/caches/transforms-3/eadbf300a40ae8a73848ff970848fe74/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:21:5-23:64
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] /Users/rahulrai/.gradle/caches/transforms-3/c10a03062000eef8f595c02bee1acdc7/transformed/jetified-recaptcha-18.1.2/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] /Users/rahulrai/.gradle/caches/transforms-3/c10a03062000eef8f595c02bee1acdc7/transformed/jetified-recaptcha-18.1.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/5a5a752a30ef8f927b89ee5d02868eb5/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/5a5a752a30ef8f927b89ee5d02868eb5/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-iid:21.1.0] /Users/rahulrai/.gradle/caches/transforms-3/77bdb4432be343bb995d94dd298a1eae/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-iid:21.1.0] /Users/rahulrai/.gradle/caches/transforms-3/77bdb4432be343bb995d94dd298a1eae/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-firestore:24.7.0] /Users/rahulrai/.gradle/caches/transforms-3/37575b3304fce6d31c2369bf44301a8e/transformed/jetified-firebase-firestore-24.7.0/AndroidManifest.xml:6:5-8:41
@@ -408,9 +411,9 @@ INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/debu
 		INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/rahulrai/AndroidStudioProjects/for_two/android/app/src/debug/AndroidManifest.xml
 service#com.google.firebase.components.ComponentDiscoveryService
-ADDED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
-MERGED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
-MERGED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
+ADDED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
+MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
+MERGED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
 MERGED from [:firebase_messaging] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:37:9-41:19
 MERGED from [:firebase_messaging] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:37:9-41:19
 MERGED from [:firebase_core] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
@@ -436,19 +439,19 @@ MERGED from [com.google.firebase:firebase-common:20.3.3] /Users/rahulrai/.gradle
 	android:directBootAware
 		ADDED from [com.google.firebase:firebase-common:20.3.3] /Users/rahulrai/.gradle/caches/transforms-3/7b0bedee7051420cb6e57373566adbb4/transformed/jetified-firebase-common-20.3.3/AndroidManifest.xml:34:13-43
 	android:name
-		ADDED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
-meta-data#com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar
-ADDED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
-	android:value
-		ADDED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
-	android:name
-		ADDED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
+		ADDED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
 meta-data#com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar
 ADDED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
 	android:value
 		ADDED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
 	android:name
 		ADDED from [:cloud_firestore] /Users/rahulrai/AndroidStudioProjects/for_two/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-134
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar
+ADDED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+	android:value
+		ADDED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+	android:name
+		ADDED from [:firebase_auth] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [:firebase_messaging] /Users/rahulrai/AndroidStudioProjects/for_two/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-68
 MERGED from [com.google.firebase:firebase-iid:21.1.0] /Users/rahulrai/.gradle/caches/transforms-3/77bdb4432be343bb995d94dd298a1eae/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:24:5-68
@@ -607,18 +610,6 @@ ADDED from [:url_launcher_android] /Users/rahulrai/AndroidStudioProjects/for_two
 		ADDED from [:url_launcher_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-71
 	android:name
 		ADDED from [:url_launcher_android] /Users/rahulrai/AndroidStudioProjects/for_two/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-74
-uses-library#androidx.window.extensions
-ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
-	android:required
-		ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
-	android:name
-		ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
-uses-library#androidx.window.sidecar
-ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
-	android:required
-		ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
-	android:name
-		ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
 activity#com.google.firebase.auth.internal.GenericIdpActivity
 ADDED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/caches/transforms-3/eadbf300a40ae8a73848ff970848fe74/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:29:9-46:20
 	android:excludeFromRecents
@@ -673,6 +664,18 @@ ADDED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/ca
 		ADDED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/caches/transforms-3/eadbf300a40ae8a73848ff970848fe74/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:71:17-82
 	android:name
 		ADDED from [com.google.firebase:firebase-auth:22.1.0] /Users/rahulrai/.gradle/caches/transforms-3/eadbf300a40ae8a73848ff970848fe74/transformed/jetified-firebase-auth-22.1.0/AndroidManifest.xml:70:17-109
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] /Users/rahulrai/.gradle/caches/transforms-3/86a1a9f6804c8fc691a553244f0de821/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
 uses-permission#com.google.android.c2dm.permission.RECEIVE
 ADDED from [com.google.firebase:firebase-iid:21.1.0] /Users/rahulrai/.gradle/caches/transforms-3/77bdb4432be343bb995d94dd298a1eae/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:26:5-82
 MERGED from [com.google.firebase:firebase-messaging:23.2.0] /Users/rahulrai/.gradle/caches/transforms-3/a89e5d8e47efe077725995554c7d66c0/transformed/jetified-firebase-messaging-23.2.0/AndroidManifest.xml:28:5-82

@@ -27,7 +27,8 @@ class PasswordFormField extends StatelessWidget {
       },
       decoration: InputDecoration(
         filled: false,
-        contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 5), // adjust as you need
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color:Color(0xFFDBDBDB)),
         ),
@@ -37,11 +38,18 @@ class PasswordFormField extends StatelessWidget {
         errorBorder:UnderlineInputBorder(
           borderSide: BorderSide(color:Color(0xFFDBDBDB)),
         ) ,
-        suffixIcon: IconButton(
-          icon: Icon(
-            isObsecure ? Icons.visibility_off : Icons.visibility,
+        suffixIconConstraints: BoxConstraints(
+          minWidth: 2,
+          minHeight: 2,
+        ),
+        suffix: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: IconButton(
+            icon: Icon(
+              isObsecure ? Icons.visibility_off : Icons.visibility,
+            ),
+            onPressed: onTap,
           ),
-          onPressed: onTap,
         ),
       ),
     );

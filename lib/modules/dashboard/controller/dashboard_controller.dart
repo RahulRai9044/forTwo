@@ -6,9 +6,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:for_two/modules/dashboard/model/add_meeting.dart';
 import 'package:for_two/modules/dashboard/view/profile_screen.dart';
-import 'package:for_two/modules/invitations/view/invitation_list.dart';
-import 'package:for_two/modules/invited/view/invited_list.dart';
+import 'package:for_two/modules/homePage/view/home_page.dart';
+import 'package:for_two/modules/wishlists/view/wish_lists.dart';
 import 'package:for_two/prefrenceData/app_prefrence.dart';
+import 'package:for_two/utils/size.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController{
@@ -18,6 +19,8 @@ class DashboardController extends GetxController{
   var tabIndex = 0;
   final Prefrence mPrefrence = Prefrence();
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+  double percent = 50.0;
 
 
   // initialize the final data
@@ -158,14 +161,54 @@ class DashboardController extends GetxController{
   Widget getPage(int index) {
     switch (index) {
       case 0:
-        return  InvitedList();
+        return  HomePage();
       case 1:
-        return  InvitationList();
+        return  WishListScreen();
       case 2:
         return  ProfileScreen();
       default:
-        return  InvitedList();
+        return  HomePage();
     }
+  }
+
+  Path buildBoatPath() {
+
+    // double width = size.width/2;
+    // double height = size.height/3;
+    //
+    // Path path = Path();
+    // path.moveTo(0.5 * width, height * 0.35);
+    // path.cubicTo(0.2 * width, height * 0.1, -0.25 * width, height * 0.6, 0.5 * width, height);
+    // path.moveTo(0.5 * width, height * 0.35);
+    // path.cubicTo(0.8 * width, height * 0.1, 1.25 * width, height * 0.6,
+    //     0.5 * width, height);
+
+    Path path = Path();
+     double width = size.width/2;
+    double height = size.height/3.5;
+    // Starting point
+    path.moveTo(width / 2, height / 5);
+
+    // Upper left path
+    path.cubicTo(5 * width / 14, 0, 0, height / 15, width / 28, 2 * height / 5);
+
+    // Lower left path
+    path.cubicTo(width / 14, 2 * height / 3, 3 * width / 7, 5 * height / 5, width / 2, height);
+
+    // Lower right path
+    path.cubicTo(4 * width / 7, 5 * height / 5, 13 * width / 14, 2 * height / 3, 27 * width / 28, 2 * height / 5);
+
+    // Upper right path
+    path.cubicTo(width, height / 15, 9 * width / 14, 0, width / 2, height / 5);
+
+    Paint paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth=10.0
+      ..color = Colors.black;
+
+    
+
+    return path;
   }
 
 }

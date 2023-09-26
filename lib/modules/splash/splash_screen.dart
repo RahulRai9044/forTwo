@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:for_two/modules/auth/view/login_screen.dart';
 import 'package:for_two/modules/dashboard/view/dashboard_screen.dart';
+import 'package:for_two/modules/welcome/view/welcome_view.dart';
 import 'package:for_two/prefrenceData/app_prefrence.dart';
 import 'package:for_two/utils/size.dart';
 import 'package:get/get.dart';
@@ -33,7 +34,7 @@ class _SplashState extends State<SplashScreen> {
       });
     } else {
       Timer(const Duration(seconds: 10), () {
-        Get.offAll(() => const LoginScreen());
+        Get.offAll(() =>  WelcomeScreen());
       });
     }
   }
@@ -48,8 +49,8 @@ class _SplashState extends State<SplashScreen> {
         children: [
           Image.asset(
             "assets/images/app_icon.png",
-            height: size.height * 0.4,
-            width: size.height * 0.4,
+            height: size.height * 0.3,
+            width: size.height * 0.3,
           ),
           const SizedBox(
             height: 10,

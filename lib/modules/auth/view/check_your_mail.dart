@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/controller/forgot_password_controller.dart';
 import 'package:for_two/modules/auth/view/reset_password_screen.dart';
 import 'package:for_two/modules/auth/widget/common_elevated_button.dart';
@@ -46,10 +47,10 @@ class CheckYourMail extends StatelessWidget {
                         width: size.width * 0.4,
                       ),
 
-                      Center(child: CustomizedTextWidget(color: buttonFirstColor, fontSize: 24, textValue: 'Check your Email',fontWeight: FontWeight.w700,)),
+                      Center(child: CustomizedTextWidget(color: buttonFirstColor, fontSize: 24, textValue:IntlKeys.check_your_mail.tr,fontWeight: FontWeight.w700,)),
                       const SizedBox(height: 20),
 
-                      Center(child: CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'We have sent you a reset password link on \n your registered email address.',fontWeight: FontWeight.normal,)),
+                      Center(child: CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.reset_password_link.tr,fontWeight: FontWeight.normal,)),
 
                       Visibility(
                         visible: false,
@@ -93,7 +94,7 @@ class CheckYourMail extends StatelessWidget {
                       CommonElevatedButton(
                         height: size.height * 0.05,
                         width: size.width * 0.60,
-                        title: 'Go to Email',
+                        title: IntlKeys.go_to_mail.tr,
                         onTap: () async {
 
                             //   await controller.sendOtpForPasswordChange();

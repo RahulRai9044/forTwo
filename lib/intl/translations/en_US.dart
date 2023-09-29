@@ -1,0 +1,63 @@
+const en_US = <String, String>{
+  'head_one_welcome': 'Percentage Calculator',
+  'button_welcome' :'Let’s Start',
+  'head_two_welcome': 'Achievements',
+  'head_three_welcome': 'Fortune Wheel',
+  'desc_one_welcome': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper velit mauris, sit amet viverra nibh maximus quis',
+  'desc_two_welcome': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper velit mauris, sit amet viverra nibh maximus quis',
+  'desc_three_welcome': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper velit mauris, sit amet viverra nibh maximus quis',
+  'select_language': 'Select Your Language',
+  'change_language': 'Change Language',
+
+  'check_your_mail': 'Check your Email',
+  'reset_password_link': 'We have sent you a reset password link on \n your registered email address.',
+  'go_to_mail': 'Go to Email',
+
+  'skip_btn': 'Skip',
+  'done_btn': 'Done',
+
+  'forgot_password': 'Forgot Password',
+  'reset_pass_desc': 'Please enter your registered email to reset your password.',
+
+  'email_id': 'Email ID',
+  'send_code': 'Send Code',
+  'login':'Login',
+  'dont_have_account':'Don’t have an account ?',
+  'register': 'Register',
+  'enter_code_email':'Please enter code sent to your email',
+  'get_started':'Get started',
+  'resend_code':'Resend code',
+  'full_name':'Full Name',
+  'email':'Email',
+  'phone_number':'Phone Number',
+  'country':'Country',
+  'city':'City',
+  'password':'Password *',
+  'cnf_password':'Confirm Password*',
+  'gender':'Gender',
+  'female':'Female',
+  'male':'Male',
+  'other':'Other',
+  'pnots':'Prefer not to say',
+  'error':'Error',
+  'accept_our_tc':'Please accept our terms and Privacy Policy to continue.',
+  'registration_started':'Registration started..',
+  'failed':'Failed',
+  'enter_correct_pass':'Please enter correct password',
+  'already_account':'Already have an account?',
+  'sign_in':' Sign In',
+  'correct_email':'Enter correct email address',
+  'required':'Required*',
+  'pass_not_match_try':'Password did not match.Try Again',
+  'new_password':'New Password',
+  'home_desc':'Lorem Ipsum is simply dummy text of the printing  and  \n typesetting industry . Lorem Ipsum has been the industry\'s  \n standard dummy text ever since the 1500s,',
+  'home_quote':'\"A couple who plays together \n stays together\"',
+  'splash_head':'A space for you both',
+  'connect_play':'Connect to PLay',
+
+  'calendar_head':'Calendar',
+
+
+
+
+};

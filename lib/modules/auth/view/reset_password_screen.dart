@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/controller/forgot_password_controller.dart';
 import 'package:for_two/modules/auth/view/check_your_mail.dart';
 import 'package:for_two/modules/auth/widget/common_elevated_button.dart';
@@ -54,7 +55,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
                               InputTextField(
                                 textColors: kTextColor,
-                                text: "New Password",
+                                text: IntlKeys.new_password.tr,
                                 controller:
                                 controller.passwordController,
                                 inputType: TextInputType.text,
@@ -65,7 +66,7 @@ class ResetPasswordScreen extends StatelessWidget {
                                 onTap: controller.showPassword,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Required*';
+                                    return IntlKeys.required.tr;
                                   }
                                   return null;
                                 },
@@ -75,7 +76,7 @@ class ResetPasswordScreen extends StatelessWidget {
                               ),
                               InputTextField(
                                 textColors: kTextColor,
-                                text: "Confirm Password",
+                                 text: IntlKeys.cnf_password.tr,
                                 controller: controller
                                     .confirmPasswordController,
                                 inputType: TextInputType.text,
@@ -89,11 +90,11 @@ class ResetPasswordScreen extends StatelessWidget {
                                 },
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Required*';
+                                    return IntlKeys.required.tr;
                                   } else if (value !=
                                       controller
                                           .passwordController.text) {
-                                    return "Password did not match.Try Again";
+                                    return IntlKeys.pass_not_match_try.tr;
                                   } else {
                                     return null;
                                   }

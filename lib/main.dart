@@ -9,6 +9,9 @@ import 'package:for_two/route/app_route.dart';
 import 'package:for_two/utils/app_theme.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:get/get.dart';
+import 'intl/intl.dart';
+import 'intl/intl_keys.dart';
 
 
 Future<void> main() async {
@@ -48,6 +51,10 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
      // initialBinding: RootBindings(),
+      title: IntlKeys.select_language.tr,
+      translations: Intl(),
+      locale: Get.deviceLocale,
+      fallbackLocale: Intl.localeEN_US,
       builder: EasyLoading.init(),
       theme: themeData(),
       defaultTransition: Transition.fade,

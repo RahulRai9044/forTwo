@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/controller/forgot_password_controller.dart';
 import 'package:for_two/modules/auth/view/check_your_mail.dart';
 import 'package:for_two/modules/auth/widget/common_elevated_button.dart';
@@ -39,13 +40,13 @@ class ForgotPasswordView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    CustomizedTextWidget(color: buttonFirstColor, fontSize: 25, textValue: 'Forgot Password'),
+                    CustomizedTextWidget(color: buttonFirstColor, fontSize: 25, textValue: IntlKeys.forgot_password.tr),
 
                     const SizedBox(height: 20),
 
                     Align(
                         alignment: Alignment.centerLeft,
-                        child:CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 20, textValue: 'Please enter your registered email to reset your password.')),
+                        child:CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 20, textValue: IntlKeys.reset_pass_desc.tr)),
                     const SizedBox(height: 20),
                     InputTextField(
                         controller: controller.emailController,
@@ -61,7 +62,7 @@ class ForgotPasswordView extends StatelessWidget {
                           }
                           return null;
                         },
-                        text: 'Email ID'),
+                        text: IntlKeys.email_id.tr),
                     const SizedBox(height: 30),
 
 
@@ -71,7 +72,7 @@ class ForgotPasswordView extends StatelessWidget {
                       child: CommonElevatedButton(
                         height: size.height * 0.05,
                         width: size.width * 1.0,
-                        title: 'Send Code',
+                        title: IntlKeys.send_code.tr,
                         onTap: () async {
                           var isValid =
                           controller.formKey.currentState!.validate();

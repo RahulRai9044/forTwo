@@ -17,6 +17,18 @@ class WishListScreen extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        actions: [
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0,0.0,10.0,0.0),
+            child: Image.asset(
+              "assets/images/star_icon.png",
+              height: 30,
+              width: 30,
+            ),
+          ),
+          
+        ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(50.0),
           child: Container(

@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/controller/register_controller.dart';
 import 'package:for_two/modules/auth/view/login_screen.dart';
 import 'package:for_two/modules/auth/widget/common_elevated_button.dart';
@@ -42,12 +43,12 @@ class RegisterScreen extends StatelessWidget {
 
                             InputTextField(
                                 textColors: kTextColor,
-                                text: 'Full Name',
+                                text: IntlKeys.full_name.tr,
                                 controller: controller.userNameController,
                                 inputType: TextInputType.name,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Required*';
+                                    return IntlKeys.required.tr;
                                   }
                                   return null;
                                 }),
@@ -56,7 +57,7 @@ class RegisterScreen extends StatelessWidget {
 
                             InputTextField(
                                 textColors: kTextColor,
-                                text: 'Email',
+                                text: IntlKeys.email.tr,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(10)
                                 ],
@@ -64,7 +65,7 @@ class RegisterScreen extends StatelessWidget {
                                 inputType: TextInputType.number,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Required*';
+                                    return IntlKeys.required.tr;
                                   }
                                   return null;
                                 }),
@@ -73,14 +74,14 @@ class RegisterScreen extends StatelessWidget {
 
                             InputTextField(
                               textColors: kTextColor,
-                              text: "Phone Number",
+                              text: IntlKeys.phone_number.tr,
                               controller: controller.emailController,
                               inputType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Required*';
+                                  return IntlKeys.required.tr;
                                 } else if (!GetUtils.isEmail(value)) {
-                                  return 'Enter correct email address';
+                                  return IntlKeys.correct_email.tr;
                                 }
                                 return null;
                               },
@@ -97,13 +98,13 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       InputTextField(
                                         textColors: kTextColor,
-                                        text: "Country",
+                                        text: IntlKeys.country.tr,
                                         controller:
                                             controller.passwordController,
                                         inputType: TextInputType.text,
                                         validator: (value) {
                                           if (value!.isEmpty) {
-                                            return 'Required*';
+                                            return IntlKeys.required.tr;
                                           }
                                           return null;
                                         },
@@ -121,13 +122,13 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       InputTextField(
                                         textColors: kTextColor,
-                                        text: "City",
+                                        text: IntlKeys.cnf_password.tr,
                                         controller: controller
                                             .confirmPasswordController,
                                         inputType: TextInputType.text,
                                         validator: (value) {
                                           if (value!.isEmpty) {
-                                            return 'Required*';
+                                            return IntlKeys.required.tr;
                                           } else {
                                             return null;
                                           }
@@ -150,7 +151,7 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       InputTextField(
                                         textColors: kTextColor,
-                                        text: "Password*",
+                                        text: IntlKeys.password.tr,
                                         controller:
                                         controller.passwordController,
                                         inputType: TextInputType.text,
@@ -161,7 +162,7 @@ class RegisterScreen extends StatelessWidget {
                                         onTap: controller.showPassword,
                                         validator: (value) {
                                           if (value!.isEmpty) {
-                                            return 'Required*';
+                                            return IntlKeys.required.tr;
                                           }
                                           return null;
                                         },
@@ -179,7 +180,7 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       InputTextField(
                                         textColors: kTextColor,
-                                        text: "Confirm Password*",
+                                        text: IntlKeys.cnf_password.tr,
                                         controller: controller
                                             .confirmPasswordController,
                                         inputType: TextInputType.text,
@@ -190,11 +191,11 @@ class RegisterScreen extends StatelessWidget {
                                         onTap: controller.showPasswordCNF,
                                         validator: (value) {
                                           if (value!.isEmpty) {
-                                            return 'Required*';
+                                            return IntlKeys.required.tr;
                                           } else if (value !=
                                               controller
                                                   .passwordController.text) {
-                                            return "Password did not match.Try Again";
+                                            return IntlKeys.pass_not_match_try.tr;
                                           } else {
                                             return null;
                                           }
@@ -207,7 +208,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
 
                             const SizedBox(height: 20),
-                            CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Gender'),
+                            CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue:IntlKeys.gender.tr),
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,13 +220,13 @@ class RegisterScreen extends StatelessWidget {
                                       groupValue: controller.id,
                                       onChanged: (val) {
 
-                                        controller.radioButtonItem = 'female';
+                                        controller.radioButtonItem = IntlKeys.female.tr;
                                           controller.id = 1;
                                         controller.update();
                                       },
                                     ),
 
-                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Female'),
+                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.female.tr),
 
                                   ],
                                 ),
@@ -237,13 +238,13 @@ class RegisterScreen extends StatelessWidget {
                                       value: 2,
                                       groupValue: controller.id,
                                       onChanged: (val) {
-                                          controller.radioButtonItem = 'male';
+                                          controller.radioButtonItem = IntlKeys.male.tr;
                                           controller.id = 2;
                                           controller.update();
                                       },
                                     ),
 
-                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Male'),
+                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.male.tr),
                                   ],
                                 ),
 
@@ -255,13 +256,13 @@ class RegisterScreen extends StatelessWidget {
                                       groupValue: controller.id,
                                       onChanged: (val) {
 
-                                          controller.radioButtonItem = 'other';
+                                          controller.radioButtonItem = IntlKeys.other.tr;
                                           controller.id = 3;
                                           controller.update();
 
                                       },
                                     ),
-                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Other'),
+                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.other.tr),
                                   ],
                                 ),
 
@@ -272,7 +273,7 @@ class RegisterScreen extends StatelessWidget {
                                       groupValue: controller.id,
                                       onChanged: (val) {
 
-                                        controller.radioButtonItem = 'pnots';
+                                        controller.radioButtonItem = IntlKeys.pnots.tr;
                                         controller.id = 3;
                                         controller.update();
 
@@ -280,7 +281,7 @@ class RegisterScreen extends StatelessWidget {
 
                                     ),
 
-                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Prefer not to say'),
+                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue:IntlKeys.pnots.tr),
                                   ],
                                 ),
 
@@ -302,20 +303,20 @@ class RegisterScreen extends StatelessWidget {
                       child: CommonElevatedButton(
                         height: size.height * 0.05,
                         width: size.width * 1.0,
-                        title: 'Register',
+                        title: IntlKeys.register.tr,
                         onTap: controller.isChecked == true
                             ? () {
                                 ApplicationUtils.showSnackBar(
-                                    titleText: 'Error',
+                                    titleText: IntlKeys.error.tr,
                                     messageText:
-                                        'Please accept our terms and Privacy Policy to continue.');
+                                    IntlKeys.accept_our_tc.tr);
                               }
                             : () async {
                                 if (controller.formKey.currentState!.validate()) {
 
                                   if(controller.passwordController.text == controller.confirmPasswordController.text){
 
-                                    EasyLoading.show(status: 'Registration started..');
+                                    EasyLoading.show(status: IntlKeys.registration_started.tr);
                                     await controller.registerUsingEmailPassword(name:controller.userNameController.text,email: controller.emailController.text,password: controller.passwordController.text,userPhoneNumber: controller.userPhoneNumberController.text);
                                     EasyLoading.dismiss();
 
@@ -324,7 +325,7 @@ class RegisterScreen extends StatelessWidget {
 
 
                                     ApplicationUtils.showSnackBar(
-                                        titleText: "Failed", messageText: 'Please enter correct password');
+                                        titleText: IntlKeys.failed.tr, messageText:IntlKeys.enter_correct_pass.tr);
 
                                   }
 
@@ -336,7 +337,7 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(height: 10.0),
                     RichText(
                       text: TextSpan(
-                          text: "Already have an account?",
+                          text: IntlKeys.already_account.tr,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2
@@ -348,7 +349,7 @@ class RegisterScreen extends StatelessWidget {
                                   ..onTap = () {
                                     Get.off(() => const LoginScreen());
                                   },
-                                text: " Sign In",
+                                text: IntlKeys.sign_in.tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2

@@ -3,7 +3,7 @@ import 'package:for_two/modules/auth/binding/register_binding.dart';
 import 'package:for_two/modules/auth/view/login_screen.dart';
 import 'package:for_two/modules/auth/view/register_screen.dart';
 import 'package:for_two/modules/dashboard/binding/dashboard_binding.dart';
-import 'package:for_two/modules/dashboard/view/add_new_meeting.dart';
+import 'package:for_two/modules/wishlists/view/add_new_wish.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
 class AppRoute {
@@ -20,8 +20,8 @@ class AppRoute {
       binding: RegisterBinding(),
     ),
     GetPage(
-      name: "/addNewMeeting",
-      page: () => const AddNewMeeting(),
+      name: "/addNewWish",
+      page: () => const AddNewWish(),
       binding: DashboardBinding(),
     ),
    /* GetPage(

@@ -18,6 +18,9 @@ Color gradientColorTwo =  Color(0x00C9D3EC);
 Color gradientColorThree =  Color(0x00E8EBF4);
 Color gradientColorFour =  Color(0x00F4C8D7);
 Color gradientColorFive =  Color(0x00FFF5EB);
+Color badgeTextLevelColour =  Color(0xFFF11B30);
+Color imageCardBackgroundColor =  Color(0xFFE80663);
+Color dividerColor =  Color(0xFFD9D9D9);
 
 ThemeData themeData() {
   return ThemeData(

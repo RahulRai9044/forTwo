@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/controller/register_controller.dart';
 import 'package:for_two/modules/auth/widget/common_elevated_button.dart';
 import 'package:for_two/utils/size.dart';
@@ -37,7 +38,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     width: 150,
                   ),
                   Text(
-                    'Please enter code sent to your email',
+                    IntlKeys.enter_code_email.tr,
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   const SizedBox(height: 20),
@@ -77,7 +78,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       //  await controller.reSendOtp();
                       },
                       child: Text(
-                        'resend code',
+                        IntlKeys.resend_code.tr,
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
                               fontSize: 14,
                               color: Colors.blue,
@@ -91,7 +92,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       onTap: () async {
                       //  await controller.verifyAndRegister();
                       },
-                      title: "Get started")
+                      title: IntlKeys.get_started.tr,)
                 ],
               ),
             );

@@ -2,6 +2,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/controller/login_controller.dart';
 import 'package:for_two/modules/auth/view/forgot_password_view.dart';
 import 'package:for_two/modules/auth/view/register_screen.dart';
@@ -42,13 +43,13 @@ class LoginScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Email ID'),
+                            CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.email_id.tr),
                             const SizedBox(height: 10),
                             EmailFormField(
                               controller: controller.emailController,
                             ),
                             const SizedBox(height: 20),
-                            CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: 'Password'),
+                            CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.password.tr),
                             const SizedBox(height: 10),
                             PasswordFormField(
                               controller: controller.passwordController,
@@ -63,7 +64,7 @@ class LoginScreen extends StatelessWidget {
                                     Get.to(() => const ForgotPasswordView());
                                   },
                                   child:  Text(
-                                    'Forgot Password ?',
+                                    IntlKeys.forgot_password.tr,
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -79,10 +80,10 @@ class LoginScreen extends StatelessWidget {
                       CommonElevatedButton(
                         height: size.height * 0.05,
                         width: size.width * 1.0,
-                        title: 'Login',
+                        title: IntlKeys.login.tr,
                         onTap: () async {
                           if (controller.loginFormKey.currentState!.validate()) {
-                            EasyLoading.show(status: 'Sign In');
+                            EasyLoading.show(status: IntlKeys.sign_in.tr);
                             await controller.signInUserWithEmailAndPassword(email: controller.emailController.text,password: controller.passwordController.text);
                             EasyLoading.dismiss();
                           }
@@ -96,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                        SizedBox(height: size.height * 0.05),
                        RichText(
                         text: TextSpan(
-                            text: "Don’t have an account?",
+                            text: "${IntlKeys.dont_have_account.tr}?",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
@@ -107,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                                     ..onTap = () {
                                       Get.off(() => const RegisterScreen());
                                     },
-                                  text: ' Register',
+                                  text: IntlKeys.register.tr,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2

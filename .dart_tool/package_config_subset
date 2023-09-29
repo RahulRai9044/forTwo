@@ -66,6 +66,10 @@ dots_indicator
 2.12
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/dots_indicator-2.1.2/
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/dots_indicator-2.1.2/lib/
+equatable
+2.12
+file:///Users/rahulrai/.pub-cache/hosted/pub.dev/equatable-2.0.5/
+file:///Users/rahulrai/.pub-cache/hosted/pub.dev/equatable-2.0.5/lib/
 facebook_auth_desktop
 3.0
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/facebook_auth_desktop-1.0.0/
@@ -118,6 +122,10 @@ firebase_messaging_web
 2.18
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/firebase_messaging_web-3.5.6/
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/firebase_messaging_web-3.5.6/lib/
+fl_chart
+3.0
+file:///Users/rahulrai/.pub-cache/hosted/pub.dev/fl_chart-0.63.0/
+file:///Users/rahulrai/.pub-cache/hosted/pub.dev/fl_chart-0.63.0/lib/
 flutter_easyloading
 2.12
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/flutter_easyloading-3.0.5/
@@ -350,6 +358,10 @@ sign_in_with_apple_web
 2.12
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/sign_in_with_apple_web-1.0.1/
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/sign_in_with_apple_web-1.0.1/lib/
+simple_gesture_detector
+2.12
+file:///Users/rahulrai/.pub-cache/hosted/pub.dev/simple_gesture_detector-0.2.0/
+file:///Users/rahulrai/.pub-cache/hosted/pub.dev/simple_gesture_detector-0.2.0/lib/
 source_span
 2.18
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/source_span-1.10.0/
@@ -366,6 +378,10 @@ string_scanner
 2.18
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/lib/
+table_calendar
+2.12
+file:///Users/rahulrai/.pub-cache/hosted/pub.dev/table_calendar-3.0.9/
+file:///Users/rahulrai/.pub-cache/hosted/pub.dev/table_calendar-3.0.9/lib/
 term_glyph
 2.12
 file:///Users/rahulrai/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/
@@ -446,6 +462,10 @@ flutter
 3.0
 file:///Users/rahulrai/flutter/packages/flutter/
 file:///Users/rahulrai/flutter/packages/flutter/lib/
+flutter_localizations
+3.0
+file:///Users/rahulrai/flutter/packages/flutter_localizations/
+file:///Users/rahulrai/flutter/packages/flutter_localizations/lib/
 flutter_test
 3.0
 file:///Users/rahulrai/flutter/packages/flutter_test/

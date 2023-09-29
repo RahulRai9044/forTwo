@@ -19,34 +19,6 @@ class WishListController extends GetxController  with GetSingleTickerProviderSta
   //FETCHING DATA FROM ARRAY LIST IN COLLECTION
 
 
-/*  // initialize the final data
-  Rxn<List<NewMeetingModel>> finalNewsModel = Rxn<List<NewMeetingModel>>();
-
-  // input data to list
-  List<NewMeetingModel>? get newsModelList => finalNewsModel.value;
-
-  int get listSize => finalNewsModel.value!.length;
-
-  //stream builder
-  Stream<List<NewMeetingModel>> streamDemo(String? value) {
-    return FirebaseFirestore.instance
-        .collection('InvitationsList')
-        .doc(value)
-        .snapshots()
-        .map((ds) {
-      var mapData = ds.data();
-      List mapList = mapData!['meetingDetails'];
-      List<NewMeetingModel> newsModelList = [];
-      mapList.forEach((element) {
-        newsModelList.add(NewMeetingModel.fromMap(element));
-      });
-
-      print("newsModelList");
-      print(newsModelList);
-      print("newsModelList");
-      return newsModelList;
-    });
-  }*/
 
   void getData(){
 
@@ -60,17 +32,15 @@ class WishListController extends GetxController  with GetSingleTickerProviderSta
   void onReady() {
 
 
+
   }
 
   @override
   void onInit() {
-   /* mPrefrence
-        .getUserId()
-        .then((value) => {finalNewsModel.bindStream(streamDemo(value))});
-*/
 
     tabController = TabController(vsync: this, length: 2);
     topController = ConfettiController(duration: const Duration(seconds: 10));
+    topController.play();
 
 
     super.onInit();

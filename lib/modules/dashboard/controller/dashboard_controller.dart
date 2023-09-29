@@ -4,9 +4,10 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:for_two/modules/calanderPage/view/calander_page.dart';
 import 'package:for_two/modules/dashboard/model/add_meeting.dart';
-import 'package:for_two/modules/dashboard/view/profile_screen.dart';
-import 'package:for_two/modules/homePage/view/home_page.dart';
+import 'package:for_two/modules/dashboard/view/home_page.dart';
+import 'package:for_two/modules/statistics/view/statistics_tab_view.dart';
 import 'package:for_two/modules/wishlists/view/wish_lists.dart';
 import 'package:for_two/prefrenceData/app_prefrence.dart';
 import 'package:for_two/utils/size.dart';
@@ -165,24 +166,13 @@ class DashboardController extends GetxController{
       case 1:
         return  WishListScreen();
       case 2:
-        return  ProfileScreen();
+        return  CalendarPage();
       default:
-        return  HomePage();
+        return  StatisticTabView();
     }
   }
 
   Path buildBoatPath() {
-
-    // double width = size.width/2;
-    // double height = size.height/3;
-    //
-    // Path path = Path();
-    // path.moveTo(0.5 * width, height * 0.35);
-    // path.cubicTo(0.2 * width, height * 0.1, -0.25 * width, height * 0.6, 0.5 * width, height);
-    // path.moveTo(0.5 * width, height * 0.35);
-    // path.cubicTo(0.8 * width, height * 0.1, 1.25 * width, height * 0.6,
-    //     0.5 * width, height);
-
     Path path = Path();
      double width = size.width/2;
     double height = size.height/3.5;

@@ -1,9 +1,10 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:for_two/intl/intl_keys.dart';
+import 'package:for_two/modules/auth/view/login_screen.dart';
 import 'package:for_two/modules/auth/widget/common_elevated_button.dart';
 import 'package:for_two/modules/auth/widget/common_text.dart';
-import 'package:for_two/modules/dashboard/view/dashboard_screen.dart';
 import 'package:for_two/modules/welcome/controller/welcome_controller.dart';
 import 'package:for_two/utils/app_theme.dart';
 import 'package:for_two/utils/size.dart';
@@ -44,10 +45,10 @@ class WelcomeScreen extends StatelessWidget{
                   child: CommonElevatedButton(
                     height: size.height * 0.05,
                     width: size.width * 1.0,
-                    title: "Let’s Start",
+                    title: IntlKeys.button_welcome.tr,
                     onTap: () async {
 
-                      Get.offAll(() => DashboardScreen());
+                      Get.offAll(() => LoginScreen());
 
                     },
                   ),
@@ -56,22 +57,21 @@ class WelcomeScreen extends StatelessWidget{
               pages: [
 
                 PageViewModel(
-                  title: "Percentage Calculator",
-                  body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper velit mauris, sit amet viverra nibh maximus quis.",
+                  title:IntlKeys.head_one_welcome.tr,
+                  body: IntlKeys.desc_one_welcome.tr,
                   image: buildImage('welcome_one.png'),
                   decoration: controller.pageDecoration,
                 ),
                 PageViewModel(
-                  title: "Achievements",
-                  body:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper velit mauris, sit amet viverra nibh maximus quis.  ",
+                  title: IntlKeys.head_two_welcome.tr,
+                  body:IntlKeys.desc_two_welcome.tr,
                   image: buildImage('welcome_two.png'),
                   decoration: controller.pageDecoration,
                 ),
 
                 PageViewModel(
-                  title: "Fortune Wheel",
-                  body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper velit mauris, sit amet viverra nibh maximus quis. ",
+                  title: IntlKeys.head_three_welcome.tr,
+                  body: IntlKeys.desc_three_welcome.tr,
                   image: buildImage('welcome_three.png'),
                   decoration: controller.pageDecoration.copyWith(
                     bodyFlex: 6,
@@ -89,9 +89,9 @@ class WelcomeScreen extends StatelessWidget{
               showBackButton: false,
               //rtl: true, // Display as right-to-left
               back: const Icon(Icons.arrow_back),
-              skip:  CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: 'Skip'),
-              next: CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: 'Done'),
-              done: CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: 'Done'),
+              skip:  CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.skip_btn.tr,),
+              next: CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.done_btn.tr,),
+              done: CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.done_btn.tr,),
               curve: Curves.fastLinearToSlowEaseIn,
               controlsMargin: const EdgeInsets.all(16),
               controlsPadding: kIsWeb

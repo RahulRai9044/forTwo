@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:for_two/modules/auth/view/login_screen.dart';
+import 'package:for_two/intl/intl_keys.dart';
+import 'package:for_two/modules/chooseLanguage/view/select_language.dart';
 import 'package:for_two/modules/dashboard/view/dashboard_screen.dart';
-import 'package:for_two/modules/welcome/view/welcome_view.dart';
 import 'package:for_two/prefrenceData/app_prefrence.dart';
 import 'package:for_two/utils/size.dart';
 import 'package:get/get.dart';
@@ -34,7 +34,7 @@ class _SplashState extends State<SplashScreen> {
       });
     } else {
       Timer(const Duration(seconds: 10), () {
-        Get.offAll(() =>  WelcomeScreen());
+        Get.offAll(() =>  SelectLanguage());
       });
     }
   }
@@ -55,8 +55,8 @@ class _SplashState extends State<SplashScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            "A space for you both",
+           Text(
+            IntlKeys.splash_head.tr,
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.black54,fontSize: 15),
           ),

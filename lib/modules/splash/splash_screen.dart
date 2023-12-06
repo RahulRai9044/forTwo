@@ -28,7 +28,7 @@ class _SplashState extends State<SplashScreen> {
 
   autoLogin() async {
     String? userDetail = await _prefs.getUserId();
-    if (userDetail != null) {
+    if (userDetail.isNotEmpty) {
       Timer(const Duration(seconds: 10), () {
         Get.offAll(() => DashboardScreen());
       });

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:for_two/utils/app_theme.dart';
 import 'package:get/get.dart';
 
 class EmailFormField extends StatelessWidget {
@@ -14,7 +15,7 @@ class EmailFormField extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.emailAddress,
       cursorColor: Colors.black, // Only numbers can be entered
-      style: TextStyle(color: Colors.black.withOpacity(0.8)),
+      style: TextStyle(color: kTextColor,fontSize: 15),
       validator: (value) {
         if (value!.isEmpty) {
           return 'Email can not be empty';

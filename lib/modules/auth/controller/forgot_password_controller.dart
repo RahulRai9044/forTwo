@@ -1,10 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:for_two/modules/auth/model/VerifiedPassModel.dart';
 import 'package:for_two/modules/auth/model/changepassword.dart';
+import 'package:for_two/modules/auth/model/send_otp.dart';
+import 'package:for_two/modules/auth/view/check_your_mail.dart';
 import 'package:for_two/modules/auth/view/login_screen.dart';
+import 'package:for_two/modules/auth/view/reset_password_screen.dart';
 import 'package:for_two/services/auth_service.dart';
 import 'package:for_two/utils/app_utils.dart';
+import 'package:for_two/utils/constants.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -16,16 +21,21 @@ class ForgotPasswordController extends GetxController {
   late TextEditingController passwordController;
   late TextEditingController confirmPasswordController;
   late StreamController<ErrorAnimationType> errorController;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
+  late GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // ChangePasswordSendOTP? otpData;
-  // VerifyOTP? verifiedOTP;
-  bool isLoading = true;
-  ChangePassword? _changePassword;
-  ChangePassword? get changePassword => _changePassword;
+  SendOtpModel? _sendOtp;
+  SendOtpModel? get sendotp => _sendOtp;
+
+  VerifiedPassModel? _verifiedOtp;
+  VerifiedPassModel? get verifiedOtp => _verifiedOtp;
+
+  bool isLoading = false;
+  SendOtpModel? _changePassword;
+  SendOtpModel? get changePassword => _changePassword;
 
   bool isOtpFieldVisible = false;
+
+
   bool isChangePassowrdFieldVisible = false;
   bool isObsecure = true;
   bool isObsecureCNF = true;
@@ -58,10 +68,8 @@ class ForgotPasswordController extends GetxController {
     print (emailValid); // true
     if(emailValid){
       current_opacity=1.0;
-      isOtpFieldVisible=true;
       update();
     }else{
-      isOtpFieldVisible=false;
       current_opacity=0.4;
       update();
     }
@@ -86,85 +94,67 @@ class ForgotPasswordController extends GetxController {
 
   }
 
-  // resendOtp() async {
-  //   isResendOTP = false;
-  //   await sendOtpForPasswordChange();
-  //   otpController.clear();
-  //   countdownController.restart();
-  // }
-
-  // sendOtpForPasswordChange() async {
-  //   isLoading = true;
-  //   otpData = await _auth.sendOTPForChangePassword(emailController.text);
-  //   if (otpData?.status == 'Success') {
-  //     isLoading = false;
-  //     isOtpFieldVisible = true;
-  //   } else {
-  //     isLoading = false;
-  //     ApplicationUtils.showSnackBar(
-  //         titleText: otpData?.status, messageText: otpData?.msg);
-  //   }
-  //   update();
-  // }
-
- /* verifyOtp() async {
+  sendOTPForForgetPassword() async {
     try {
       isLoading = true;
-      verifiedOTP = await _auth.verifyOTPChangePass(
-          emailController.text, otpController.text);
-
-      if (verifiedOTP?.status == "Success") {
-        isLoading = false;
-        isChangePassowrdFieldVisible = true;
-        await Prefrence.setToken(verifiedOTP?.data?.loginToken);
-        ApplicationUtils.showSnackBar(
-            titleText: verifiedOTP?.status, messageText: verifiedOTP?.msg);
-      } else {
-        isLoading = false;
-
-        isChangePassowrdFieldVisible = false;
-        ApplicationUtils.showSnackBar(
-            titleText: "Failed", messageText: "Invalid OTP");
-      }
-    } catch (e) {
-      isLoading = false;
-
-      debugPrint(e.toString());
-    }
-
-    update();
-  }*/
-
-  changePasswordandLogin() async {
-    try {
-      isLoading = true;
-      _changePassword = await _auth.changePassword(
-        email: emailController.text,
-        password: passwordController.text,
+      _sendOtp = await _auth.sendOtpForForgetPassword(
+        userEmail: emailController.text,
       );
-      if (_changePassword?.status == "Success") {
+      debugPrint("register ${_sendOtp?.msg}");
+
+      if (_sendOtp?.status == AppConstants.StatusSuccess) {
         isLoading = false;
-        ApplicationUtils.showSnackBar(
-            titleText: _changePassword?.status,
-            messageText: _changePassword?.msg);
-        Get.offAll(() => const LoginScreen());
+         debugPrint("register ${_sendOtp?.data}");
+        await ApplicationUtils.showSnackBar(titleText: _sendOtp?.status, messageText: _sendOtp?.msg);
+
+        Get.off(CheckYourMail());
+
       } else {
-        isLoading = false;
-        ApplicationUtils.showSnackBar(
-            titleText: _changePassword?.status,
-            messageText: _changePassword?.msg);
+
+
       }
     } catch (e) {
-      isLoading = false;
+
+      debugPrint("catch Error ${e.toString()}");
+
     }
+
     update();
+
+
   }
 
-  /*inputOtp(String otp) async {
-    otpController.text = otp;
-    await verifyOtp();
-    update();
-  }*/
+
+  verifyOtpChangePassword() async {
+    try {
+      isLoading = true;
+      _verifiedOtp = await _auth.verifyOTPForgetPassword(
+        userEmail: emailController.text,
+        changePasswordOTP: otpController.text,
+      );
+      debugPrint("register ${_verifiedOtp?.msg}");
+      debugPrint("register ${_verifiedOtp?.statusCode}");
+      if (_verifiedOtp?.status == AppConstants.StatusSuccess) {
+        isLoading = false;
+
+        await ApplicationUtils.showSnackBar(titleText: _verifiedOtp?.status, messageText: _verifiedOtp?.msg);
+
+        Get.off(const ResetPasswordScreen(),arguments: [{"user_email": emailController.text}, {"user_otp": otpController.text}]);
+
+      } else {
+
+      }
+    } catch (e) {
+      debugPrint("catch Error ${e.toString()}");
+      ApplicationUtils.showSnackBar(
+          titleText: _verifiedOtp?.status, messageText: _verifiedOtp?.msg);
+
+    }
+
+
+  }
+
+
 
   @override
   void onInit() {
@@ -173,6 +163,7 @@ class ForgotPasswordController extends GetxController {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
+
     errorController = StreamController<ErrorAnimationType>();
   }
 
@@ -184,5 +175,12 @@ class ForgotPasswordController extends GetxController {
     confirmPasswordController.dispose();
     otpController.dispose();
     errorController.close();
+  }
+
+  void updateView() {
+
+    isOtpFieldVisible=true;
+    update();
+
   }
 }

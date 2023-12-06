@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:for_two/utils/app_theme.dart';
 
 class PasswordFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -18,7 +19,7 @@ class PasswordFormField extends StatelessWidget {
       obscureText: isObsecure,
       keyboardType: TextInputType.text,
       cursorColor: Colors.black, // Only numbers can be entered
-      style: TextStyle(color: Colors.black.withOpacity(0.8),),
+      style: TextStyle(color: kTextColor,fontSize: 15),
       validator: (value) {
         if (value!.isEmpty) {
           return 'Password can not be empty';
@@ -28,7 +29,7 @@ class PasswordFormField extends StatelessWidget {
       decoration: InputDecoration(
         filled: false,
         isDense: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 5), // adjust as you need
+        contentPadding: EdgeInsets.symmetric(vertical: 0), // adjust as you need
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color:Color(0xFFDBDBDB)),
         ),

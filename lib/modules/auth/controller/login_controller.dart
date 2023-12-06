@@ -1,31 +1,45 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:for_two/modules/auth/model/user.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_social_content_share/flutter_social_content_share.dart';
+import 'package:for_two/modules/auth/model/error_model.dart';
+import 'package:for_two/modules/auth/model/register.dart';
+import 'package:for_two/modules/auth/model/send_otp.dart';
+import 'package:for_two/modules/auth/view/otp_screen.dart';
+import 'package:for_two/modules/auth/view/register_screen.dart';
 import 'package:for_two/modules/dashboard/view/dashboard_screen.dart';
 import 'package:for_two/prefrenceData/app_prefrence.dart';
+import 'package:for_two/services/auth_service.dart';
 import 'package:for_two/utils/app_utils.dart';
+import 'package:for_two/utils/constants.dart';
 import 'package:get/get.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginController extends GetxController {
-  final Prefrence mPrefs = Prefrence();
+class LoginController extends GetxController with StateMixin {
+  String _platformVersion = 'Unknown';
+  final AuthService _auth = AuthService();
+  final Prefrence _prefs = Prefrence();
+  AuthUserModel? _registerUser;
+  AuthUserModel? get register => _registerUser;
+  SendOtpModel? _sendOtp;
+  SendOtpModel? get sendotp => _sendOtp;
 
-  User? _loginUser;
-  User? get loginUser => _loginUser;
+  ErrorModel? _checkUserVerification;
+  ErrorModel? get userVarification => _checkUserVerification;
 
   bool isLoading = false;
 
   bool isObsecure = true;
   String? token;
   String? userData;
-  String? patientID;
+  String? userID;
 
- CollectionReference mUserFirebaseInstance = FirebaseFirestore.instance.collection('userData');
+
+  TextEditingController otpTextController=TextEditingController();
+
 
   late TextEditingController emailController, passwordController;
   late GlobalKey<FormState> loginFormKey;
@@ -36,134 +50,192 @@ class LoginController extends GetxController {
   }
 
 
- Future<User?> signInUserWithEmailAndPassword({
-   required String email,
-   required String password,
- }) async {
-   FirebaseAuth auth = FirebaseAuth.instance;
-   User? user;
+  userLoginWithPasswordAndEmail() async {
+  //  String fcmToken = await _prefs.getFCMToken();
 
-   try {
-     UserCredential userCredential = await auth.signInWithEmailAndPassword(
-       email: email,
-       password: password,
-     );
+    try {
+      isLoading = true;
+      _registerUser = await _auth.userLogin(
+        userEmail: emailController.text,
+        userPassword: passwordController.text,
+        userRole: 'user', socialLoginId:"", userLoginType:"normal", socialType: "",
+      );
 
-     user = userCredential.user;
+      if (_registerUser?.status == AppConstants.StatusSuccess) {
+        isLoading = false;
+        token = _registerUser?.token;
+        userID = _registerUser?.user.id;
+        print(userID);
+        await Prefrence.setUserID(userID);
+        await Prefrence.setToken(token);
+        await Prefrence.setUserEmail(_registerUser?.user.email);
+        await Prefrence.setUserWishLimit(_registerUser!.user.wishes_plan_limit);
+        await ApplicationUtils.showSnackBar(titleText: _registerUser?.statusCode, messageText: _registerUser?.msg);
+        sendOtpForRegistration();
+      } else if(_registerUser?.status == AppConstants.StatusFailed){
 
+        ApplicationUtils.showSnackBar(titleText: _registerUser?.status, messageText: _registerUser?.msg);
+         isLoading = false;
 
-     user = auth.currentUser;
+      }else{
 
-     if(user?.uid != null){
+        isLoading = false;
 
-       EasyLoading.show(status: 'Please wait');
+      }
+    } catch (e) {
+      debugPrint("catch Error ${e.toString()}");
+       isLoading = false;
+    }
 
-       String fcmToken = await mPrefs.getFCMToken();
+    update();
 
-       updateUserData(userUID:user!.uid,isLogin: true,fcmToken: fcmToken);
+  }
 
-     }else{
+  userSocialLogin(String socialLoginId,String userLoginType,String socialType) async {
+    //  String fcmToken = await _prefs.getFCMToken();
+    try {
+      isLoading = true;
+      _registerUser = await _auth.userLogin(
+        userEmail: emailController.text,
+        userPassword: socialLoginId,
+        userRole: 'user', socialLoginId: socialLoginId, userLoginType:userLoginType, socialType: socialType,
+      );
 
+      if (_registerUser?.status == AppConstants.StatusSuccess) {
+        isLoading = false;
+        token = _registerUser?.token;
+        userID = _registerUser?.user.id;
+        print(userID);
+        await Prefrence.setUserID(userID);
+        await Prefrence.setToken(token);
+        await Prefrence.setUserEmail(_registerUser?.user.email);
+        await Prefrence.setUserWishLimit(_registerUser!.user.wishes_plan_limit);
+        await ApplicationUtils.showSnackBar(titleText: _registerUser?.statusCode, messageText: _registerUser?.msg);
 
-
-     }
-
-
-   } on FirebaseAuthException catch (e) {
-     if (e.code == 'weak-password') {
-       print('The password provided is too weak.');
-     } else if (e.code == 'email-already-in-use') {
-       ApplicationUtils.showSnackBar(
-           titleText: "Failed", messageText: 'The account already exists for that email.');
-
-     }
-   } catch (e) {
-     print(e);
-   }
-
-   return user;
- }
-
-
- Future<User?> updateUserData ({
-   required String userUID,
-   required bool isLogin,
-   required String fcmToken})
- async{
-   try {
-     await mUserFirebaseInstance.doc(userUID).update({
-       'userUid': userUID,
-       'isLogin': isLogin,
-       'userFCmToken': fcmToken
-     }).then((value) => {
-
-       mPrefs.setUserID(userUID),
-
-       if(EasyLoading.isShow){
-
-         EasyLoading.dismiss()
-
-       }else{
-
-         EasyLoading.dismiss()
-
-       },
-
-       getUserData(userUID),
+        Get.offAll(() =>  DashboardScreen());
 
 
+      } else if(_registerUser?.status == AppConstants.StatusFailed){
 
-     //
+        ApplicationUtils.showSnackBar(titleText: _registerUser?.status, messageText: _registerUser?.msg);
+        isLoading = false;
 
-     });
+      }else{
 
-   }  on FirebaseException catch(e){
-     EasyLoading.dismiss();
-     ApplicationUtils.showSnackBar(
-         titleText: "Failed", messageText: e.message);
+        isLoading = false;
 
-   }
-   return null;
+      }
+    } catch (e) {
+      debugPrint("catch Error ${e.toString()}");
+      isLoading = false;
+    }
 
- }
+    update();
 
- Future<void> getUserData(String userUID) async {
-   final collection = await mUserFirebaseInstance.doc(userUID).get();
-   Map<String, dynamic> data = collection.data() as Map<String, dynamic>;
+  }
 
-   UserData userData=UserData.fromJson(data);
+  sendOtpForRegistration() async {
+    try {
+      isLoading = true;
+      _sendOtp = await _auth.sendOtpForVerifyEmail(
+        userEmail: emailController.text,
+      );
+      debugPrint("register ${_sendOtp?.msg}");
+      debugPrint("register ${_sendOtp?.statusCode}");
+      if (_sendOtp?.status == AppConstants.StatusSuccess) {
+        isLoading = false;
 
-   if(userData.userPhoneNumber.isNotEmpty){
+        await ApplicationUtils.showSnackBar(titleText: _sendOtp?.status, messageText: _sendOtp?.msg);
 
-     mPrefs.setUserPhoneNumber(userData.userPhoneNumber);
+        Get.offAll(() => const OTPScreen());
+
+      } else {
+
+        isLoading = false;
+      }
+    } catch (e) {
+
+      debugPrint("catch Error ${e.toString()}");
+      isLoading = false;
+    }
+
+    update();
 
 
-     Get.offAll(() => DashboardScreen());
-
-   }else{
+  }
 
 
-     ApplicationUtils.showSnackBar(
-         titleText: "Failed", messageText: 'User phone number not to be empty');
+
+  verifyOtpAfterRegistration(String emailUser) async {
+    try {
+      isLoading = true;
+      _sendOtp = await _auth.verifyOTPScreen(
+        userEmail: emailUser,
+        activationOtp: otpTextController.text,
+      );
+      debugPrint("register ${_sendOtp?.msg}");
+      debugPrint("register ${_sendOtp?.statusCode}");
+      if (_sendOtp?.status == AppConstants.StatusSuccess) {
+        isLoading = false;
+
+        await ApplicationUtils.showSnackBar(
+            titleText: _sendOtp?.status, messageText: _sendOtp?.msg);
+        Get.offAll(() =>  DashboardScreen());
+        isLoading = false;
+      } else {
+        ApplicationUtils.showSnackBar(
+            titleText: _sendOtp?.status, messageText: _sendOtp?.msg);
+        isLoading = false;
+      }
+    } catch (e) {
+      debugPrint("catch Error ${e.toString()}");
+
+      isLoading = false;
+
+    }
+    update();
+
+  }
 
 
-   }
 
-   print(data);
- }
+
 
   @override
   void onInit() {
     super.onInit();
-   // getFcmTokenn();
     emailController = TextEditingController();
     passwordController = TextEditingController();
     loginFormKey = GlobalKey<FormState>();
+    initPlatformState();
 
-   // ifUserIsLoggedIn();
+
+  // ifUserIsLoggedIn();
 
   }
 
+
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    String? platformVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      platformVersion = await FlutterSocialContentShare.platformVersion;
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+
+
+
+      _platformVersion = platformVersion!;
+
+      update();
+  }
 
 
   @override
@@ -171,6 +243,7 @@ class LoginController extends GetxController {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    otpTextController.dispose();
   }
 
 
@@ -181,6 +254,7 @@ class LoginController extends GetxController {
   TextEditingController _userIdController =TextEditingController();
 
   bool _passwordVisible=false;
+
 
   bool get passwordVisible => _passwordVisible;
 
@@ -211,21 +285,24 @@ class LoginController extends GetxController {
 
 
 
-  clearAllModels(){
-    _userLoginAutoValidate=false;
-    _passwordController=TextEditingController();
-    _userIdController=TextEditingController();
-    _passwordVisible=false;
-  }
-
 
   AccessToken? _accessToken;
   Map<String, dynamic>? _userData;
   bool? _checking = true;
 
+  shareOnFacebook() async {
+    String? result = await FlutterSocialContentShare.share(
+        type: ShareType.facebookWithoutImage,
+        url: "https://play.google.com/store/apps/details?id=com.fundrivegames.mega.ramp.ultimate.cars.stunts.impossibletracks&hl=en-IN",
+        quote: "captions");
+    print("Rahul");
+    print(result);
+    print("Rahul");
+  }
+
   loginFacebook() async {
     final LoginResult loginResult = await FacebookAuth.instance.login();
-
+    print('Result: ${loginResult}');
     if (loginResult.status == LoginStatus.success) {
       _accessToken = loginResult.accessToken;
       final userInfo = await FacebookAuth.instance.getUserData();
@@ -255,13 +332,15 @@ class LoginController extends GetxController {
       print("rahulData");
 
     } else {
-      loginFacebook();
+      //loginFacebook();
     }
   }
 
 
+
+
   late User _user;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _authGoogle = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   bool isSignIn =false;
@@ -284,18 +363,22 @@ class LoginController extends GetxController {
 
     );
 
-    UserCredential authResult = await _auth.signInWithCredential(credential);
+    UserCredential authResult = await _authGoogle.signInWithCredential(credential);
 
     _user = authResult.user!;
 
+    print(_user);
+    print("Rahul");
     assert(!_user.isAnonymous);
 
     assert(await _user.getIdToken() != null);
-
-    User currentUser = await _auth.currentUser!;
-
+    User currentUser = await _authGoogle.currentUser!;
+    print(currentUser.toString());
     assert(_user.uid == currentUser.uid);
 
+    if(_user.email!.isNotEmpty){
+      checkUserExistance(_user);
+    }
 
     //model.state =ViewState.Idle;
 
@@ -303,6 +386,43 @@ class LoginController extends GetxController {
     print("User Email ${_user.email}");
 
     return _user.displayName;
+
+
+
+  }
+
+  checkUserExistance(User user) async {
+    try {
+      isLoading = true;
+      _checkUserVerification = await _auth.checkUserExistance(
+        userEmail: user.email ?? "",
+      );
+      if (_checkUserVerification?.status == AppConstants.StatusSuccess) {
+        isLoading = false;
+
+        emailController.text=user.email ?? "";
+
+        userSocialLogin(user.uid ?? "","social","google");
+
+        await ApplicationUtils.showSnackBar(
+            titleText: _checkUserVerification?.status, messageText: _checkUserVerification?.msg);
+
+        isLoading = false;
+      } else {
+
+        Get.offAll(() =>  RegisterScreen(),arguments: user);
+
+        ApplicationUtils.showSnackBar(
+            titleText: _checkUserVerification?.status, messageText: _checkUserVerification?.msg);
+        isLoading = false;
+      }
+    } catch (e) {
+      debugPrint("catch Error ${e.toString()}");
+
+      isLoading = false;
+
+    }
+    update();
 
   }
 

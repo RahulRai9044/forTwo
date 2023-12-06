@@ -8,7 +8,9 @@ class CustomizedTextWidget extends StatelessWidget {
     required this.textValue,
      this.fontWeight,
      this.textAlignment,
-     this.overflow
+     this.overflow,
+     this.fontFamily,
+    this.maxline
   }) : super(key: key);
   final Color color;
   final double fontSize;
@@ -16,13 +18,16 @@ class CustomizedTextWidget extends StatelessWidget {
   final FontWeight? fontWeight;
   final TextAlign? textAlignment;
   final TextOverflow? overflow;
+  final String? fontFamily;
+  final int? maxline;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       textValue,
-      style: TextStyle(color: color,fontWeight:fontWeight,fontFamily: '', fontSize: fontSize).copyWith(color: color),
+      style: TextStyle(color: color,fontWeight:fontWeight,fontFamily:fontFamily, fontSize: fontSize).copyWith(color: color),
       textAlign: textAlignment,
+      maxLines: maxline,
       overflow: overflow,
     );
   }

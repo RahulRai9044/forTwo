@@ -1,45 +1,37 @@
-class SendOtp {
-  String? msg;
-  String? status;
-  Otp? otp;
+// To parse this JSON data, do
+//
+//     final sendOtpModel = sendOtpModelFromJson(jsonString);
 
-  SendOtp({this.msg, this.status, this.otp});
+import 'dart:convert';
 
-  SendOtp.fromJson(Map<String, dynamic> json) {
-    msg = json['msg'];
-    status = json['status'];
-    otp = json['data'] != null ? Otp.fromJson(json['data']) : null;
-  }
+SendOtpModel sendOtpModelFromJson(String str) => SendOtpModel.fromJson(json.decode(str));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['msg'] = msg;
-    data['status'] = status;
-    if (otp != null) {
-      data['data'] = otp!.toJson();
-    }
-    return data;
-  }
-}
+String sendOtpModelToJson(SendOtpModel data) => json.encode(data.toJson());
 
-class Otp {
-  String? email;
-  int? otp;
-  bool? isEmailVerified;
+class SendOtpModel {
+  String status;
+  String statusCode;
+  String data;
+  String msg;
 
-  Otp({this.email, this.otp, this.isEmailVerified});
+  SendOtpModel({
+    required this.status,
+    required this.statusCode,
+    required this.data,
+    required this.msg,
+  });
 
-  Otp.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    otp = json['otp'];
-    isEmailVerified = json['isEmailVerified'];
-  }
+  factory SendOtpModel.fromJson(Map<String, dynamic> json) => SendOtpModel(
+    status: json["status"],
+    statusCode: json["status_code"],
+    data: json["data"],
+    msg: json["msg"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['email'] = email;
-    data['otp'] = otp;
-    data['isEmailVerified'] = isEmailVerified;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "status_code": statusCode,
+    "data": data,
+    "msg": msg,
+  };
 }

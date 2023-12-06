@@ -1,6 +1,7 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/controller/login_controller.dart';
@@ -25,8 +26,12 @@ class LoginScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: GetBuilder<LoginController>(
             init: LoginController(),
+
             builder: (controller) {
-              return SingleChildScrollView(
+              return controller.isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  :SingleChildScrollView(
+                scrollDirection:Axis.vertical,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 20),
                   child: Column(
@@ -44,13 +49,11 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.email_id.tr),
-                            const SizedBox(height: 10),
                             EmailFormField(
                               controller: controller.emailController,
                             ),
                             const SizedBox(height: 20),
                             CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.password.tr),
-                            const SizedBox(height: 10),
                             PasswordFormField(
                               controller: controller.passwordController,
                               isObsecure: controller.isObsecure,
@@ -83,12 +86,8 @@ class LoginScreen extends StatelessWidget {
                         title: IntlKeys.login.tr,
                         onTap: () async {
                           if (controller.loginFormKey.currentState!.validate()) {
-                            EasyLoading.show(status: IntlKeys.sign_in.tr);
-                            await controller.signInUserWithEmailAndPassword(email: controller.emailController.text,password: controller.passwordController.text);
-                            EasyLoading.dismiss();
+                            await controller.userLoginWithPasswordAndEmail();
                           }
-
-                          Get.offAll(() => DashboardScreen());
 
                         },
                       ),
@@ -128,7 +127,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             onPressed: () {
 
-                              controller.signInWithGoogle(controller);
+                              controller.signInWithGoogle(controller).whenComplete(() => controller.update());
 
                             },
                           ),
@@ -141,7 +140,9 @@ class LoginScreen extends StatelessWidget {
                             ),
                             onPressed: () {
 
-                            controller.loginFacebook();
+
+                             // controller.shareOnFacebook();
+                           controller.loginFacebook();
 
                             },
                           ),

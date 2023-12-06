@@ -1,171 +1,131 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/model/register.dart';
-import 'package:for_two/modules/auth/model/send_otp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:for_two/modules/auth/view/login_screen.dart';
+import 'package:for_two/modules/dashboard/view/dashboard_screen.dart';
+import 'package:for_two/prefrenceData/app_prefrence.dart';
+import 'package:for_two/services/auth_service.dart';
 import 'package:for_two/utils/app_utils.dart';
+import 'package:for_two/utils/constants.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 
 class RegisterController extends GetxController {
-  late TextEditingController userNameController;
+
+  final AuthService _auth = AuthService();
+
+  late TextEditingController userFirstName;
+  late TextEditingController userLastName;
   late TextEditingController emailController;
   late TextEditingController userPhoneNumberController;
-  late TextEditingController userZipcodeController;
-  late TextEditingController userStateController;
+  late TextEditingController userAddressController;
+  late TextEditingController userDateOfBirthController;
   late TextEditingController passwordController;
   late TextEditingController confirmPasswordController;
-  late TextEditingController otpController;
+  late TextEditingController userDobController;
+
+  var selectedDrowpdown = IntlKeys.male.tr;
+  List dropdownText = [IntlKeys.male.tr, IntlKeys.female.tr, IntlKeys.other.tr,IntlKeys.pnots.tr];
+
+
   late GlobalKey<FormState> formKey;
 
   bool isLoading = false;
-  SendOtp? _sendOtp;
-  SendOtp? get sendotp => _sendOtp;
-  Register? _registerUser;
-  Register? get register => _registerUser;
+  AuthUserModel? _registerUser;
+  AuthUserModel? get register => _registerUser;
   bool isObsecure = true;
   bool isObsecureCNF = true;
 
+  String userLoginType="normal";
+  String userLoginProvider="";
+  String userLoginId="";
+  bool passwordFieldVisibility=true;
+
+
   String? token;
-  String? patientID = '';
+  String? userID = '';
   bool? isChecked = false;
   String? userData;
   String? gender;
   // Default Radio Button Selected Item When App Starts.
-  String radioButtonItem = 'ONE';
 
   // Group Value for Radio Button.
   int id = 1;
 
-  CollectionReference mUserFirebaseInstance = FirebaseFirestore.instance.collection('userData');
+  DateTime selectedDate = DateTime(2015,12,01);
 
 
-   Future<User?> registerUsingEmailPassword({
-    required String name,
-    required String email,
-    required String password,
-     required String userPhoneNumber,
-  }) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-
-    try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      user = userCredential.user;
-      await user!.updateProfile(displayName: name);
-      await user.reload();
-      user = auth.currentUser;
-
-      if(user?.uid != null){
-
-      EasyLoading.show(status: 'Please wait');
-
-       addUser(userUID:user!.uid,userName:name,userEmail:email,userPhoneNumber: userPhoneNumber,isLogin: false);
-
-      }else{
-
-
-
-      }
-
-
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        ApplicationUtils.showSnackBar(
-            titleText: "Failed", messageText: 'The account already exists for that email.');
-
-      }
-    } catch (e) {
-      print(e);
-    }
-
-    return user;
+  Future<Null> selectDate(DateTime date) async {
+    final f = new DateFormat('yyyy-MM-dd');
+    userDateOfBirthController.text = f.format(date);
+    update();
   }
 
 
-  Future<User?> addUser ({
-  required String userUID,
-  required String userName,
-  required String userEmail,
-  required String userPhoneNumber,
-  required bool isLogin})
-    async{
-      try {
-         await mUserFirebaseInstance.doc(userUID).set({
-           'userUid': userUID,
-           'userName': userName,
-           'userEmail': userEmail,
-           'userPhoneNumber': userPhoneNumber,
-           'isLogin': isLogin
-         }).then((value) => {
-
-              if(EasyLoading.isShow){
-
-                EasyLoading.dismiss()
-
-              }else{
-
-                EasyLoading.dismiss()
-
-              },
-
-             Get.offAll(() => const LoginScreen()),
-
-         });
-
-      }  on FirebaseException catch(e){
-         EasyLoading.dismiss();
-         ApplicationUtils.showSnackBar(
-            titleText: "Failed", messageText: e.message);
-
-      }
-      return null;
-
-    }
 
 
-  /*verifyAndRegister() async {
-    String fcmToken = await _prefs.getFCMToken();
+  registerNewUserData() async {
+   // String fcmToken = await _prefs.getFCMToken();
     try {
       isLoading = true;
-      _registerUser = await _auth.registerNewUser(
+      _registerUser = await _auth.verifyOtpAndRegister(
+        firstName: userFirstName.text,
+        lastName: userLastName.text,
         userEmail: emailController.text,
-        userOTP: otpController.text,
         userPassword: passwordController.text,
-        userFcmToken: fcmToken,
-        userName: userNameController.text,
-        privacyConsent: isChecked ?? true,
+        userPhoneNumber: userPhoneNumberController.text,
+        userStatus: 'active',
+        userRole: 'user',
+        userDOB: userDateOfBirthController.text,
+        userGender: selectedDrowpdown,
+        userMemberType: 'free_user',
+        userSelectedLanguage: 'english',
+        userLoginType: userLoginType,
+        userLoginProvider: userLoginProvider,
+        userLoginId: userLoginId,
       );
-      debugPrint("register ${_registerUser?.msg}");
-      debugPrint("register ${_registerUser?.status}");
-      if (_registerUser?.status == "Success") {
+
+      if (_registerUser?.status == AppConstants.StatusSuccess) {
         isLoading = false;
-        token = _registerUser?.data?.loginToken;
-        patientID = _registerUser?.data?.sId;
-        await _prefs.setPatientID(patientID);
-        await Prefrence.setToken(token);
-        await ApplicationUtils.showSnackBar(
-            titleText: _registerUser?.status, messageText: _registerUser?.msg);
-        Get.offAll(() => const LoginScreen());
+        token = _registerUser?.token;
+        userID = _registerUser?.user.id;
+
+        if(_registerUser?.user.socialLoginId != null){
+
+          await Prefrence.setUserID(userID);
+          await Prefrence.setToken(token);
+          await Prefrence.setUserEmail(_registerUser?.user.email);
+          await Prefrence.setUserWishLimit(_registerUser!.user.wishes_plan_limit);
+          await ApplicationUtils.showSnackBar(titleText: _registerUser?.statusCode, messageText: _registerUser?.msg);
+          Get.offAll(() =>  DashboardScreen());
+
+
+        }else{
+
+
+          await Prefrence.setUserID(userID);
+          await Prefrence.setToken(token);
+          await Prefrence.setUserEmail(_registerUser?.user.email);
+          await Prefrence.setUserWishLimit(_registerUser!.user.wishes_plan_limit);
+          await ApplicationUtils.showSnackBar(titleText: _registerUser?.statusCode, messageText: _registerUser?.msg);
+          Get.offAll(() =>  LoginScreen());
+
+        }
+
+
+
       } else {
-        ApplicationUtils.showSnackBar(
-            titleText: _registerUser?.status, messageText: _registerUser?.msg);
+
       }
     } catch (e) {
       debugPrint("catch Error ${e.toString()}");
     }
+
     update();
-  }*/
+  }
 
   showPassword() {
     isObsecure = !isObsecure;
@@ -183,30 +143,77 @@ class RegisterController extends GetxController {
     update();
   }
 
+
+
   @override
   void onInit() {
     super.onInit();
-    userNameController = TextEditingController();
+    userFirstName = TextEditingController();
+    userLastName = TextEditingController();
     emailController = TextEditingController();
     userPhoneNumberController = TextEditingController();
-    userStateController = TextEditingController();
-    userZipcodeController = TextEditingController();
+    userAddressController = TextEditingController();
+    userDateOfBirthController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
-    otpController = TextEditingController();
+    userDobController = TextEditingController();
+
+    if(Get.arguments != null){
+      User socialLoginUser=Get.arguments;
+
+      if(socialLoginUser.email != null){
+
+        emailController.text=socialLoginUser.email!;
+      }
+      if(socialLoginUser.phoneNumber != null){
+
+        userPhoneNumberController.text=socialLoginUser.phoneNumber ?? "";
+      }
+      if(socialLoginUser.uid.isNotEmpty){
+
+        passwordController.text=socialLoginUser.uid;
+        confirmPasswordController.text=socialLoginUser.uid;
+
+        userLoginType="social";
+
+        userLoginProvider="google";
+
+        userLoginId=socialLoginUser.uid;
+
+         passwordFieldVisibility=false;
+
+      }
+
+      userLoginType="social";
+
+
+      if(socialLoginUser.displayName != null){
+
+        userFirstName.text=socialLoginUser.displayName ?? "";
+      }
+      if(socialLoginUser.email != null){
+
+        emailController.text=socialLoginUser.email!;
+      }
+      print("Social Login Data");
+      print(socialLoginUser);
+      print("Social Login Data");
+    }
+
     formKey = GlobalKey<FormState>();
   }
 
   @override
   void dispose() {
     super.dispose();
-    userNameController.dispose();
+    userFirstName.dispose();
+    userLastName.dispose();
     emailController.dispose();
     userPhoneNumberController.dispose();
-    userStateController.dispose();
-    userZipcodeController.dispose();
+    userDateOfBirthController.dispose();
+    userAddressController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
-    otpController.dispose();
+    userDobController.dispose();
   }
 }

@@ -36,45 +36,27 @@ class DashboardScreen extends StatelessWidget{
         onTap: controller.changeTabIndex,
         animationCurve: Curves.easeInCirc,
         items: const [
-            Icon(Icons.home, size: 30,color: Colors.white,),
-            Icon(Icons.star, size: 30,color: Colors.white,),
-            Icon(Icons.calendar_today, size: 30,color: Colors.white,),
-            Icon(Icons.auto_graph, size: 30,color: Colors.white,),
+            Icon(Icons.home, size: 20,color: Colors.white,),
+            Icon(Icons.star, size: 20,color: Colors.white,),
+            Icon(Icons.calendar_today, size: 20,color: Colors.white,),
+            Icon(Icons.auto_graph, size: 20,color: Colors.white,),
         ],
     )
-        : CupertinoTabScaffold(
-        backgroundColor: kWhiteColor,
-        tabBar: CupertinoTabBar(
-            height: 54,
-            activeColor: kWhiteColor,
-            inactiveColor: kWhiteColor!.withOpacity(0.6),
-            backgroundColor: kPrimaryColor,
-            onTap: controller.changeTabIndex,
-            currentIndex: controller.tabIndex,
-            items: const [
-              BottomNavigationBarItem(
-                label: "Home",
-                icon: Icon(Icons.insert_invitation),
-              ),
-              BottomNavigationBarItem(
-                label: "Invitations",
-                icon: Icon(Icons.insert_invitation_sharp),
-              ),
-              BottomNavigationBarItem(
-                label: "Profile",
-                icon: Icon(Icons.person),
-              ),
-            ]),
-        tabBuilder: ((context, index) {
-          return CupertinoTabView(
-            builder: (context) {
-
-             return controller.getPage(index);
-
-            },
-          );
-        }
-        ));
+        : CurvedNavigationBar(
+      color: buttonFirstColor,
+      buttonBackgroundColor: buttonSecondColor,
+      backgroundColor: transparentColor,
+      index: controller.tabIndex,
+      height: 60,
+      onTap: controller.changeTabIndex,
+      animationCurve: Curves.easeInCirc,
+      items: const [
+        Icon(Icons.home, size: 20,color: Colors.white,),
+        Icon(Icons.star, size: 20,color: Colors.white,),
+        Icon(Icons.calendar_today, size: 20,color: Colors.white,),
+        Icon(Icons.auto_graph, size: 20,color: Colors.white,),
+      ],
+    );
   }
 
 }

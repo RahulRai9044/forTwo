@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:for_two/intl/intl_keys.dart';
+import 'package:for_two/modules/auth/controller/login_controller.dart';
 import 'package:for_two/modules/auth/controller/register_controller.dart';
 import 'package:for_two/modules/auth/widget/common_elevated_button.dart';
 import 'package:for_two/utils/size.dart';
@@ -16,17 +17,21 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  StreamController<ErrorAnimationType> errorController =
-      StreamController<ErrorAnimationType>();
-  TextEditingController textEditingController = TextEditingController();
+  StreamController<ErrorAnimationType> errorController = StreamController<ErrorAnimationType>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: GetBuilder<RegisterController>(
-          init: RegisterController(),
+          resizeToAvoidBottomInset: false,
+      body: GetBuilder<LoginController>(
+          init: LoginController(),
           builder: (controller) {
-            return Container(
+            return controller.isLoading
+                ? Center(child: CircularProgressIndicator())
+                : Container(
+              height: size.height,
+              width: size.width,
               color: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
@@ -34,18 +39,17 @@ class _OTPScreenState extends State<OTPScreen> {
                 children: [
                   Image.asset(
                     "assets/images/app_icon.png",
-                    height: 200,
-                    width: 150,
+                    height: size.height* 0.4,
+                    width: size.width* 0.4,
                   ),
                   Text(
-                    IntlKeys.enter_code_email.tr,
+                    IntlKeys.enter_code_email.tr+" "+controller.emailController.text,
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   const SizedBox(height: 20),
                   PinCodeTextField(
                     appContext: context,
-
-                    length: 4,
+                    length: 6,
                     keyboardType: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly
@@ -57,16 +61,20 @@ class _OTPScreenState extends State<OTPScreen> {
                       shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(5),
                       fieldHeight: 50,
-                      fieldWidth: 80,
+                      fieldWidth: 50,
                       activeFillColor: Colors.white,
                     ),
                     animationDuration: const Duration(milliseconds: 300),
                     backgroundColor: Colors.white,
                     enableActiveFill: false,
                     errorAnimationController: errorController,
-                    controller: controller.otpController,
-                    onCompleted: (v) {},
-                    onChanged: (value) {},
+                    controller: controller.otpTextController,
+                    onCompleted: (v) {
+
+                    },
+                    onChanged: (value) {
+
+                    },
                     beforeTextPaste: (text) {
                       return true;
                     },
@@ -89,8 +97,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                   SizedBox(height: size.height * 0.1),
                   CommonElevatedButton(
+                    width: size.width * 0.8,
                       onTap: () async {
-                      //  await controller.verifyAndRegister();
+                       await controller.verifyOtpAfterRegistration(controller.emailController.text);
                       },
                       title: IntlKeys.get_started.tr,)
                 ],

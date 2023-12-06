@@ -1,32 +1,35 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_format/date_format.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:for_two/modules/auth/model/user.dart';
-import 'package:for_two/modules/dashboard/model/add_meeting.dart';
+import 'package:for_two/modules/wishlists/controller/wish_list_controller.dart';
+import 'package:for_two/modules/wishlists/model/wish_list_add.dart';
 import 'package:for_two/prefrenceData/app_prefrence.dart';
+import 'package:for_two/services/auth_service.dart';
 import 'package:for_two/utils/app_utils.dart';
+import 'package:for_two/utils/constants.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AddNewWishController extends GetxController  {
-  final Prefrence mPrefrence = Prefrence();
+  final AuthService _auth = AuthService();
+  final Prefrence _prefs = Prefrence();
 
   late TextEditingController wishTitleController;
-  late TextEditingController meetingDateController;
-  late TextEditingController meetingTimeController;
+  late TextEditingController addWishDateController;
+  late TextEditingController wishDescriptionController;
 
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  RxString controllerText = ''.obs;
-  dynamic argumentData = Get.arguments;
 
   late GlobalKey<FormState> addNewMeetingFormKey;
 
+  AddWishListData? _addWishListData;
+  AddWishListData? get addWishList => _addWishListData;
 
+  bool isLoading = false;
+
+  int selectedCard=-1;
+  late String _selectedPointIndexData;
 
   late String _hour, _minute, _time;
 
@@ -44,26 +47,45 @@ class AddNewWishController extends GetxController  {
         firstDate: DateTime(2015),
                    lastDate: DateTime(2101));
     if (picked != null) selectedDate = picked;
-    meetingDateController.text = DateFormat.yMMMMEEEEd().format(selectedDate);
+    final f = new DateFormat('MM/dd/yyyy');
+    addWishDateController.text = f.format(selectedDate);
+    update();
   }
 
-  Future<Null> selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
-    if (picked != null) selectedTime = picked;
-    _hour = selectedTime.hour.toString();
-    _minute = selectedTime.minute.toString();
-    _time = _hour + ' : ' + _minute;
-    meetingTimeController.text = _time;
-    meetingTimeController.text = formatDate(
-        DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
-        [hh, ':', nn, " ", am]).toString();
-  }
+  // Future<Null> selectTime(BuildContext context) async {
+  //   final TimeOfDay? picked = await showTimePicker(
+  //     context: context,
+  //     initialTime: selectedTime,
+  //   );
+  //   if (picked != null) selectedTime = picked;
+  //   _hour = selectedTime.hour.toString();
+  //   _minute = selectedTime.minute.toString();
+  //   _time = _hour + ' : ' + _minute;
+  //   meetingTimeController.text = _time;
+  //   meetingTimeController.text = formatDate(
+  //       DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
+  //       [hh, ':', nn, " ", am]).toString();
+  // }
 
 
 
+  List pointsListData = [
+    {
+      "points": "100",
+    },
+    {
+      "points": "150",
+    },
+    {
+      "points": "200",
+    },
+    {
+      "points": "250",
+    },
+    {
+      "points": "300",
+    },
+  ];
 
 
 
@@ -73,8 +95,8 @@ class AddNewWishController extends GetxController  {
 
     wishTitleController = TextEditingController();
 
-    meetingDateController = TextEditingController();
-    meetingTimeController = TextEditingController();
+    addWishDateController = TextEditingController();
+    wishDescriptionController = TextEditingController();
 
     addNewMeetingFormKey = GlobalKey<FormState>();
   }
@@ -84,8 +106,61 @@ class AddNewWishController extends GetxController  {
     super.dispose();
 
     wishTitleController.dispose();
-    meetingTimeController.dispose();
-    meetingTimeController.dispose();
+    addWishDateController.dispose();
+    wishDescriptionController.dispose();
+
+  }
+
+  addNewWishListData() async {
+    String?
+    
+    userID = await _prefs.getUserId();
+    String partnerID = await _prefs.getPartnerId();
+    try {
+      isLoading = true;
+      _addWishListData = await _auth.addWishListData(
+        userId: userID,
+        partnerUserId: partnerID,
+        wishTitle: wishTitleController.text,
+        wishListDescription: wishDescriptionController.text,
+        wishListPoint: _selectedPointIndexData,
+        wishListDate: addWishDateController.text,
+      );
+
+      if (_addWishListData?.status == AppConstants.StatusSuccess) {
+        isLoading = false;
+
+        WishListController controller = Get.find<WishListController>();
+        controller.viewAllWishListData(userID);
+      //  controller.viewPartnerWishListData(partnerID);
+
+        Get.back();
+
+        ApplicationUtils.showSnackBar(titleText: _addWishListData?.statusCode, messageText: _addWishListData?.msg);
+        debugPrint("catch Error ${_addWishListData?.status}");
+
+
+      } else{
+
+        isLoading = false;
+
+      }
+    } catch (e) {
+      debugPrint("catch Error ${e.toString()}");
+      isLoading = false;
+    }
+
+    update();
+
+  }
+
+  void selectPoints(int indx) {
+
+      selectedCard=indx;
+      _selectedPointIndexData=pointsListData[indx]['points'];
+      print(_selectedPointIndexData);
+
+    update();
 
   }
 

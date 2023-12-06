@@ -1,103 +1,44 @@
 
 
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:for_two/modules/calanderPage/view/calander_page.dart';
-import 'package:for_two/modules/dashboard/model/add_meeting.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:for_two/modules/calanderPage/view/wish_event_tab_calander.dart';
+import 'package:for_two/modules/dashboard/model/user_partner_data_model.dart';
 import 'package:for_two/modules/dashboard/view/home_page.dart';
 import 'package:for_two/modules/statistics/view/statistics_tab_view.dart';
 import 'package:for_two/modules/wishlists/view/wish_lists.dart';
 import 'package:for_two/prefrenceData/app_prefrence.dart';
+import 'package:for_two/services/auth_service.dart';
+import 'package:for_two/utils/constants.dart';
 import 'package:for_two/utils/size.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
 
 class DashboardController extends GetxController{
 
   bool isLoading=false;
   bool badgeStatus=true;
   var tabIndex = 0;
-  final Prefrence mPrefrence = Prefrence();
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final Prefrence _mPrefrence = Prefrence();
+  final AuthService _auth = AuthService();
+
+  bool connectPartnerButton=true;
 
   double percent = 50.0;
 
+  String userName='';
+   String partnerName='';
 
-  // initialize the final data
-  Rxn<List<NewMeetingModel>> finalNewsModel = Rxn<List<NewMeetingModel>>();
+  Map<String, dynamic>? paymentIntent;
 
-  // input data to list
-  List<NewMeetingModel>? get newsModelList => finalNewsModel.value;
+  UserPartnerModel? _userPartnerDetailsData;
+  UserPartnerModel? get userWishlist => _userPartnerDetailsData;
 
-
-  //stream builder
-  Stream<List<NewMeetingModel>> streamDemo(String value) {
-    return FirebaseFirestore.instance
-        .collection('InvitationsList').where("inviterUID",isEqualTo: value)
-        .snapshots()
-        .map((ds) {
-
-          List<NewMeetingModel> newsModelList = [];
-
-          for (var todo in ds.docs) {
-
-            final todoModel =
-            NewMeetingModel.fromDocumentSnapshot(documentSnapshot: todo);
-            newsModelList.add(todoModel);
-          }
-      // var mapData = ds.metadata;
-      // SnapshotMetadata mapList = mapData;
-      // List<NewMeetingModel> newsModelList = [];
-      // mapList.forEach((element) {
-      //   newsModelList.add(NewMeetingModel.fromMap(element));
-      // });
-      //
-      
-      
-     // print(newsModelList);
-      return newsModelList;
-    });
-  }
-
-
-
-
-  // initialize the final data
-  Rxn<List<NewMeetingModel>> finalInvitationList = Rxn<List<NewMeetingModel>>();
-
-  // input data to list
-  List<NewMeetingModel>? get invitationLists => finalInvitationList.value;
-
-  //stream builder
-  Stream<List<NewMeetingModel>> getDataOfMeetingsForInvitee(String value) {
-
-    return FirebaseFirestore.instance
-        .collection('InvitationsList').where("inviteePhoneNumber",isEqualTo: value)
-        .snapshots()
-        .map((ds) {
-
-      List<NewMeetingModel> invitationLists = [];
-
-      for (var todo in ds.docs) {
-
-        final todoModel =
-        NewMeetingModel.fromDocumentSnapshot(documentSnapshot: todo);
-        invitationLists.add(todoModel);
-      }
-      // var mapData = ds.metadata;
-      // SnapshotMetadata mapList = mapData;
-      // List<NewMeetingModel> newsModelList = [];
-      // mapList.forEach((element) {
-      //   newsModelList.add(NewMeetingModel.fromMap(element));
-      // });
-      //
-
-
-      // print(newsModelList);
-      return invitationLists;
-    });
-  }
 
 
   void changeTabIndex(int index) {
@@ -128,35 +69,239 @@ class DashboardController extends GetxController{
   }
 
   @override
-  void onInit() {
-
-    mPrefrence.getUserId().then((value) => {
-
-      if(value != null){
-
-        finalNewsModel.bindStream(streamDemo(value))
-
-      }
-
-
-    });
-
-    mPrefrence.getUserPhoner().then((value) => {
-
-      if(value != null){
-
-        finalInvitationList.bindStream(getDataOfMeetingsForInvitee(value))
-
-      }
-
-
-    });
-
-
-
+  Future<void> onInit() async {
     super.onInit();
+
+    String userId= await _mPrefrence.getUserId();
+    String partnerId= await _mPrefrence.getPartnerId();
+    if(userId.isNotEmpty){
+
+      userAndPartnerDataModel(userId);
+
+
+    }
+
+
   }
 
+
+  Future<void> makePayment() async {
+    try {
+      paymentIntent = await createPaymentIntent('100', 'INR');
+
+
+      print(paymentIntent!.entries);
+
+      var gpay =  PaymentSheetGooglePay(merchantCountryCode: "GB",
+          currencyCode: "GBP",
+          testEnv: true);
+
+      //STEP 2: Initialize Payment Sheet
+      await Stripe.instance.initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
+              paymentIntentClientSecret: paymentIntent![
+              'client_secret'], //Gotten from payment intent
+              style: ThemeMode.light,
+              merchantDisplayName: 'ForTwoSouls',allowsDelayedPaymentMethods: true,googlePay: gpay))
+          .then((value) {});
+
+      //STEP 3: Display Payment sheet
+      displayPaymentSheet();
+    } catch (err) {
+      throw Exception(err);
+    }
+  }
+
+
+  createPaymentIntent(String amount, String currency) async {
+    try {
+      //Request body
+      Map<String, dynamic> body = {
+        'amount': amount,
+        'currency': currency,
+      };
+
+      //Make post request to Stripe
+      var response = await http.post(
+        Uri.parse('https://api.stripe.com/v1/payment_intents'),
+        headers: {
+          'Authorization': 'Bearer ${dotenv.env['STRIPE_SECRET']}',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: body,
+      );
+      return json.decode(response.body);
+    } catch (err) {
+      throw Exception(err.toString());
+    }
+  }
+
+
+/*  displayPaymentSheet() async {
+    try {
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                    size: 100.0,
+                  ),
+                  SizedBox(height: 10.0),
+                  Text("Payment Successful!"),
+                ],
+              ),
+            ));
+
+        paymentIntent = null;
+      }).onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    } on StripeException catch (e) {
+      print('Error is:---> $e');
+      AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: const [
+                Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
+                Text("Payment Failed"),
+              ],
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      print('$e');
+    }
+  }*/
+
+  displayPaymentSheet() async {
+    try {
+      await Stripe.instance.presentPaymentSheet().then((value) {
+
+        //Clear paymentIntent variable after successful payment
+        paymentIntent = null;
+
+      })
+          .onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    }
+    on StripeException catch (e) {
+      print('Error is:---> $e');
+    }
+    catch (e) {
+      print('$e');
+    }
+  }
+
+  Future<Map<String, dynamic>> _createTestPaymentSheet() async {
+    final url = Uri.parse('/payment-sheet');
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'a': 'a',
+      }),
+    );
+    final body = json.decode(response.body);
+    if (body['error'] != null) {
+      throw Exception(body['error']);
+    }
+    return body;
+  }
+
+
+  Future<void> initPaymentSheet() async {
+    try {
+      // 1. create payment intent on the server
+      final data = await _createTestPaymentSheet();
+
+      // 2. initialize the payment sheet
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          // Set to true for custom flow
+          customFlow: false,
+          // Main params
+          merchantDisplayName: 'Flutter Stripe Store Demo',
+          paymentIntentClientSecret: data['paymentIntent'],
+          // Customer keys
+          customerEphemeralKeySecret: data['ephemeralKey'],
+          customerId: data['customer'],
+          // Extra options
+          applePay: const PaymentSheetApplePay(
+            merchantCountryCode: 'US',
+          ),
+          googlePay: const PaymentSheetGooglePay(
+            merchantCountryCode: 'US',
+            testEnv: true,
+          ),
+          style: ThemeMode.dark,
+        ),
+      );
+      // setState(() {
+      //   _ready = true;
+      // });
+    } catch (e) {
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Error: $e')),
+      // );
+      rethrow;
+    }
+  }
+
+
+  userAndPartnerDataModel(String userDetail)  async {
+    isLoading = true;
+    _userPartnerDetailsData = await _auth.getUserAndPartnerData(userID: userDetail);
+    if (_userPartnerDetailsData?.status == AppConstants.StatusSuccess) {
+      isLoading = false;
+      print("Rahul");
+
+      print(_userPartnerDetailsData!.status);
+      print(_userPartnerDetailsData!.result?.user?.firstName ?? "");
+
+
+      if(_userPartnerDetailsData!.result?.partner != null){
+
+        await Prefrence.setPartnerUserID(_userPartnerDetailsData!.result?.partner?.id);
+
+        print(_mPrefrence.getPartnerId());
+
+
+        print(_userPartnerDetailsData!.result?.partner?.firstName ?? "");
+
+        userName=_userPartnerDetailsData!.result?.user?.firstName ?? "";
+
+        partnerName=_userPartnerDetailsData!.result?.partner?.firstName ?? '';
+
+
+        connectPartnerButton=false;
+
+      }
+
+
+
+    } else {
+
+      isLoading = false;
+    }
+
+    isLoading = false;
+    update();
+
+  }
 
 
   Widget getPage(int index) {
@@ -166,16 +311,18 @@ class DashboardController extends GetxController{
       case 1:
         return  WishListScreen();
       case 2:
-        return  CalendarPage();
+        return  CalanderWishEventTab();
       default:
         return  StatisticTabView();
     }
   }
 
-  Path buildBoatPath() {
+
+
+  Path buildHeartPath() {
     Path path = Path();
      double width = size.width/2;
-    double height = size.height/3.5;
+    double height = size.height/4.5;
     // Starting point
     path.moveTo(width / 2, height / 5);
 
@@ -191,12 +338,6 @@ class DashboardController extends GetxController{
     // Upper right path
     path.cubicTo(width, height / 15, 9 * width / 14, 0, width / 2, height / 5);
 
-    Paint paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth=10.0
-      ..color = Colors.black;
-
-    
 
     return path;
   }

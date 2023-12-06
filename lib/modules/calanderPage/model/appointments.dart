@@ -1,51 +1,73 @@
-class Appointment {
-  Appointment({
-    required this.date,
-    required this.dateChange,
-    required this.dateCreate,
-    required this.detail,
-    required this.duration,
-    required this.id,
-    required this.note,
-    required this.status,
-    required this.title,
-    required this.uid,
+// To parse this JSON data, do
+//
+//     final eventCalander = eventCalanderFromJson(jsonString);
+
+import 'dart:convert';
+
+EventCalander eventCalanderFromJson(String str) => EventCalander.fromJson(json.decode(str));
+
+String eventCalanderToJson(EventCalander data) => json.encode(data.toJson());
+
+class EventCalander {
+  String? status;
+  String? statusCode;
+  List<Datum>? data;
+  String? msg;
+
+  EventCalander({
+    this.status,
+    this.statusCode,
+    this.data,
+    this.msg,
   });
 
-  DateTime date;
-  DateTime dateChange;
-  DateTime dateCreate;
-  String detail;
-  int duration;
-  String id;
-  String note;
-  String status;
-  String title;
-  String uid;
-
-  factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
-    date: DateTime.parse(json["date"]),
-    dateChange: DateTime.parse(json["date_change"]),
-    dateCreate: DateTime.parse(json["date_create"]),
-    detail: json["detail"],
-    duration: json["duration"],
-    id: json["id"],
-    note: json["note"],
+  factory EventCalander.fromJson(Map<String, dynamic> json) => EventCalander(
     status: json["status"],
-    title: json["title"],
-    uid: json["uid"],
+    statusCode: json["status_code"],
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    msg: json["msg"],
   );
 
   Map<String, dynamic> toJson() => {
-    "date": date.toIso8601String(),
-    "date_change": dateChange.toIso8601String(),
-    "date_create": dateCreate.toIso8601String(),
-    "detail": detail,
-    "duration": duration,
-    "id": id,
-    "note": note,
     "status": status,
-    "title": title,
-    "uid": uid,
+    "status_code": statusCode,
+    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+    "msg": msg,
+  };
+}
+
+class Datum {
+  String? id;
+  String? userId;
+  String? eventType;
+  String? eventName;
+  DateTime? eventDate;
+  String? partnerId;
+
+  Datum({
+    this.id,
+    this.userId,
+    this.eventType,
+    this.eventName,
+    this.eventDate,
+    this.partnerId,
+  });
+
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    id: json["_id"],
+    userId: json["user_id"],
+    eventType: json["event_type"],
+    eventName: json["event_name"],
+    eventDate: DateTime.parse(json["event_date"]),
+    partnerId: json["partner_id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "user_id": userId,
+    "event_type": eventType,
+    "event_name": eventName,
+    "event_date": eventDate!.toIso8601String(),
+    "partner_id": partnerId,
   };
 }

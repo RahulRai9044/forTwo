@@ -22,29 +22,25 @@ class WelcomeScreen extends StatelessWidget{
       body: GetBuilder<WelcomeController>(
           init: WelcomeController(),
           builder: (controller) {
-           return IntroductionScreen(
-              key: introKey,
-              globalBackgroundColor: Colors.white,
-              allowImplicitScrolling: true,
-              autoScrollDuration: 3000,
-              infiniteAutoScroll: true,
-              globalHeader: Align(
-                alignment: Alignment.topRight,
-                child: SafeArea(
+           return SafeArea(
+             child: IntroductionScreen(
+                key: introKey,
+               // globalBackgroundColor: Colors.white,
+                allowImplicitScrolling: true,
+                autoScrollDuration: 3000,
+                infiniteAutoScroll: true,
+                globalHeader: Align(
+                  alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 16, right: 16),
+                    padding: const EdgeInsets.only(top: 10, right: 10),
                    // child: buildImage('flutter.png', 100),
                   ),
                 ),
-              ),
-              globalFooter: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: SizedBox(
-                  width: size.width * 0.5,
-                  height: size.height * 0.05,
+                globalFooter: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: CommonElevatedButton(
                     height: size.height * 0.05,
-                    width: size.width * 1.0,
+                    width: size.width * 0.5,
                     title: IntlKeys.button_welcome.tr,
                     onTap: () async {
 
@@ -53,72 +49,77 @@ class WelcomeScreen extends StatelessWidget{
                     },
                   ),
                 ),
-              ),
-              pages: [
+                pages: [
 
-                PageViewModel(
-                  title:IntlKeys.head_one_welcome.tr,
-                  body: IntlKeys.desc_one_welcome.tr,
-                  image: buildImage('welcome_one.png'),
-                  decoration: controller.pageDecoration,
-                ),
-                PageViewModel(
-                  title: IntlKeys.head_two_welcome.tr,
-                  body:IntlKeys.desc_two_welcome.tr,
-                  image: buildImage('welcome_two.png'),
-                  decoration: controller.pageDecoration,
-                ),
+                  PageViewModel(
+                    title:IntlKeys.head_one_welcome.tr,
+                    body: IntlKeys.desc_one_welcome.tr,
+                    image: buildImage('welcome_one.png'),
+                    decoration: controller.pageDecoration,
+                  ),
+                  PageViewModel(
+                    title: IntlKeys.head_two_welcome.tr,
+                    body:IntlKeys.desc_two_welcome.tr,
+                    image: buildImage('welcome_two.png'),
+                    decoration: controller.pageDecoration,
+                  ),
 
-                PageViewModel(
-                  title: IntlKeys.head_three_welcome.tr,
-                  body: IntlKeys.desc_three_welcome.tr,
-                  image: buildImage('welcome_three.png'),
-                  decoration: controller.pageDecoration.copyWith(
-                    bodyFlex: 6,
-                    imageFlex: 6,
-                    safeArea: 80,
+                  PageViewModel(
+                    title: IntlKeys.head_three_welcome.tr,
+                    body: IntlKeys.desc_three_welcome.tr,
+                    image: buildImage('welcome_three.png'),
+                    decoration: controller.pageDecoration.copyWith(
+                      bodyFlex: 6,
+                      imageFlex: 6,
+                      safeArea: 80,
+                    ),
+                  ),
+
+                ],
+                onDone: () => controller.onIntroEnd(context),
+                onSkip: () => controller.onIntroEnd(context), // You can override onSkip callback
+                showSkipButton: true,
+                skipOrBackFlex: 0,
+                nextFlex: 0,
+                showBackButton: false,
+                //rtl: true, // Display as right-to-left
+                back: const Icon(Icons.arrow_back),
+                skip:  CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.skip_btn.tr,),
+                next: CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.done_btn.tr,),
+                done: GestureDetector(
+                    onTap: (){
+
+
+                    },
+                    child: CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.done_btn.tr,)),
+                curve: Curves.fastLinearToSlowEaseIn,
+                controlsMargin: const EdgeInsets.all(10),
+                controlsPadding: kIsWeb
+                    ? const EdgeInsets.all(12.0)
+                    : const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
+                dotsDecorator: const DotsDecorator(
+                  size: Size(10.0, 10.0),
+                  color: Color(0xFFBDBDBD),
+                  activeSize: Size(22.0, 10.0),
+                  activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
                   ),
                 ),
-
-              ],
-              onDone: () => controller.onIntroEnd(context),
-              onSkip: () => controller.onIntroEnd(context), // You can override onSkip callback
-              showSkipButton: true,
-              skipOrBackFlex: 0,
-              nextFlex: 0,
-              showBackButton: false,
-              //rtl: true, // Display as right-to-left
-              back: const Icon(Icons.arrow_back),
-              skip:  CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.skip_btn.tr,),
-              next: CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.done_btn.tr,),
-              done: CustomizedTextWidget(color: welcomeButtonColor, fontSize: 16, textValue: IntlKeys.done_btn.tr,),
-              curve: Curves.fastLinearToSlowEaseIn,
-              controlsMargin: const EdgeInsets.all(16),
-              controlsPadding: kIsWeb
-                  ? const EdgeInsets.all(12.0)
-                  : const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
-              dotsDecorator: const DotsDecorator(
-                size: Size(10.0, 10.0),
-                color: Color(0xFFBDBDBD),
-                activeSize: Size(22.0, 10.0),
-                activeShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                dotsContainerDecorator: const ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  ),
                 ),
               ),
-              dotsContainerDecorator: const ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-              ),
-            );
+           );
           }),
     );
   }
 
 
-  Widget buildImage(String assetName, [double width = 350]) {
-    return Image.asset('assets/images/$assetName', width: width);
+  Widget buildImage(String assetName, [double width = 200]) {
+    return Image.asset('assets/images/$assetName', width: width,height: 200,);
   }
 
 

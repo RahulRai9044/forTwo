@@ -56,6 +56,4 @@ const es_ES = <String, String>{
   'splash_head':'Un espacio para los dos',
   'connect_play':'Conéctate a Reproducir',
 
-
-
 };

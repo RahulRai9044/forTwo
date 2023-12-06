@@ -3,6 +3,7 @@ import 'package:for_two/intl/intl.dart';
 import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/widget/common_text.dart';
 import 'package:for_two/modules/welcome/view/welcome_view.dart';
+import 'package:for_two/utils/app_theme.dart';
 import 'package:for_two/utils/size.dart';
 import 'package:get/get.dart';
 
@@ -11,11 +12,11 @@ class SelectLanguage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _textTheme = Get.textTheme;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(IntlKeys.change_language.tr),
+        title: CustomizedTextWidget(color: buttonFirstColor, fontSize: 25, textValue: IntlKeys.change_language.tr,fontFamily: 'Poppins-SemiBold',),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: Column(
         children: [
@@ -23,10 +24,9 @@ class SelectLanguage extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(
-                IntlKeys.select_language.tr,
-                style: _textTheme.headline6,
-              ),
+              child: CustomizedTextWidget(color: blackTextColor, fontSize: 18, textValue: IntlKeys.select_language.tr,fontFamily: 'Poppins-Medium',),
+
+
             ),
           ),
           const SizedBox(height: 16),
@@ -79,12 +79,12 @@ class SelectLanguage extends StatelessWidget {
                               CustomizedTextWidget(
                                   color: Colors.grey.shade800,
                                   fontSize: 16,
-                                  textValue: 'English'),
+                                  textValue: 'English',fontFamily: 'Poppins-Bold',),
                               SizedBox(height: 10),
                               CustomizedTextWidget(
                                   color: Colors.grey.shade500,
                                   fontSize: 16,
-                                  textValue: '(US)'),
+                                  textValue: '(US)',fontFamily: 'Poppins-Bold',),
                             ],
                           ),
                         ],
@@ -131,13 +131,13 @@ class SelectLanguage extends StatelessWidget {
                             CustomizedTextWidget(
                                 color: Colors.grey.shade800,
                                 fontSize: 16,
-                                textValue: 'Spanish'),
+                                textValue: 'Spanish',fontFamily: 'Poppins-Bold',),
 
                             SizedBox(height: 10),
                             CustomizedTextWidget(
                                 color: Colors.grey.shade500,
                                 fontSize: 16,
-                                textValue: '(US)'),
+                                textValue: '(US)',fontFamily: 'Poppins-Bold',),
                           ],
                         ),
                       ],

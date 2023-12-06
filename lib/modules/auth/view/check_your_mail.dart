@@ -17,11 +17,13 @@ class CheckYourMail extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          // resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: false,
           body: GetBuilder<ForgotPasswordController>(
               init: ForgotPasswordController(),
               builder: (controller) {
-                return Container(
+                return controller.isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : Container(
                   color: Colors.white,
                   height: size.height,
                   width: size.width,
@@ -40,23 +42,41 @@ class CheckYourMail extends StatelessWidget {
                             child: Icon(Icons.close,size: 30,color: kBlackColor,)),
                       ),
 
-                      SizedBox(height: size.height * 0.02),
+                      SizedBox(height: size.height * 0.01),
                       Image.asset(
                         "assets/images/mail_invitation_image.png",
-                        height: size.height * 0.4,
-                        width: size.width * 0.4,
+                        height: size.height * 0.2,
+                        width: size.width * 0.2,
                       ),
 
                       Center(child: CustomizedTextWidget(color: buttonFirstColor, fontSize: 24, textValue:IntlKeys.check_your_mail.tr,fontWeight: FontWeight.w700,)),
                       const SizedBox(height: 20),
 
-                      Center(child: CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.reset_password_link.tr,fontWeight: FontWeight.normal,)),
+                      CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.reset_password_link.tr,fontWeight: FontWeight.normal,textAlignment: TextAlign.center,),
+
+                      const SizedBox(height: 20),
+
 
                       Visibility(
-                        visible: false,
+                        visible: !controller.isOtpFieldVisible,
+                        child: CommonElevatedButton(
+                          height: size.height * 0.05,
+                          width: size.width * 0.60,
+                          title: "Check Mail",
+                          onTap: () async {
+
+                            controller.updateView();
+
+
+                          },
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: controller.isOtpFieldVisible,
                         child: PinCodeTextField(
                           appContext: context,
-                          length: 4,
+                          length: 6,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
@@ -67,8 +87,8 @@ class CheckYourMail extends StatelessWidget {
                           pinTheme: PinTheme(
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(5),
-                            fieldHeight: 40,
-                            fieldWidth: 60,
+                            fieldHeight: 50,
+                            fieldWidth: 50,
                             activeFillColor: Colors.white,
                           ),
                           animationDuration:
@@ -89,46 +109,23 @@ class CheckYourMail extends StatelessWidget {
                         ),
                       ),
 
-                      SizedBox(height: size.height * 0.05),
-
-                      CommonElevatedButton(
-                        height: size.height * 0.05,
-                        width: size.width * 0.60,
-                        title: IntlKeys.go_to_mail.tr,
-                        onTap: () async {
-
-                            //   await controller.sendOtpForPasswordChange();
-
-                            Get.off(const ResetPasswordScreen());
 
 
-                        },
+                      Visibility(
+                        visible: controller.isOtpFieldVisible,
+                        child: CommonElevatedButton(
+                          height: size.height * 0.05,
+                          width: size.width * 0.60,
+                          title: "Verify OTP",
+                          onTap: () async {
+
+                             await controller.verifyOtpChangePassword();
+
+
+                          },
+                        ),
                       )
-                      /* TextButton(
-                    onPressed: controller.isResendOTP
-                        ? () async {
-                            controller.resendOtp();
-                          }
-                        : null,
-                    child: Text(
-                      'Resend OTP',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2
-                          ?.copyWith(
-                              color: controller.isResendOTP
-                                  ? kBlackColor?.withOpacity(0.7)
-                                  : kBlackColor?.withOpacity(0.3)),
-                    ),
-                  ),*/
-                      /*Countdown(
-                    seconds: 60,
-                    build: (BuildContext context, double time) =>
-                        Text(time.toStringAsFixed(0)),
-                    interval: const Duration(seconds: 1),
-                    onFinished: controller.onTimerComplete,
-                    controller: controller.countdownController,
-                  ),*/
+
                     ],
                   ),
                 );

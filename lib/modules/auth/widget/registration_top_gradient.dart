@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:for_two/modules/auth/widget/common_text.dart';
+import 'package:for_two/utils/app_theme.dart';
 import 'package:for_two/utils/size.dart';
 
 class RegistrationTopGradient extends StatelessWidget {
@@ -10,7 +12,7 @@ class RegistrationTopGradient extends StatelessWidget {
     // Assuming constraints here.
     // Play with width and height values
     double widgetWidth = size.width;
-     double widgetHeight = size.height * 0.2;
+     double widgetHeight = size.height * 0.18;
     // To get a semicircle
      double bottomRadius = widgetWidth / 2;
     //Since we have 5 colors . Each color bars height is 60/5 = 12
@@ -27,7 +29,7 @@ class RegistrationTopGradient extends StatelessWidget {
           color: Colors.white,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(600.0),
+            bottom: Radius.circular(500.0),
           ),
 
           gradient: LinearGradient(colors: [Color(0xFFF03C86), Color(0xFFF01B2F)],
@@ -40,15 +42,18 @@ class RegistrationTopGradient extends StatelessWidget {
           clipBehavior: Clip.none,
          children: [
 
-            Positioned(
+           Center(child: CustomizedTextWidget(color: Colors.white, fontSize: 24, textValue:'Welcome', fontFamily: 'Poppins-SemiBold',fontWeight: FontWeight.w700,)),
+
+
+           Positioned(
               bottom: -30, // half of icon size
               left: 0,
               right: 0,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                 width: 100,
-                 height: 100,
+                 width: 80,
+                 height: 80,
                  decoration: BoxDecoration(
                    shape: BoxShape.circle,
                    boxShadow: [

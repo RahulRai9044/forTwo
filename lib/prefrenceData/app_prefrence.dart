@@ -11,17 +11,33 @@ class Prefrence {
     return true;
   }
 
-  setUserID(String? pid) async {
+  //User Id save
+
+  static setUserID(String? pid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isData = await prefs.setString('user_uid', pid ?? "");
     print(isData);
   }
 
-  Future<String?> getUserId() async {
+  Future<String> getUserId() async {
     _prefs = await SharedPreferences.getInstance();
-    String? id = _prefs?.getString('user_uid');
+    String? id = _prefs!.getString('user_uid');
     print('ID : $id');
-    return id;
+    return id ?? "";
+  }
+
+  //partner User ID
+  static setPartnerUserID(String? pid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isData = await prefs.setString('partner_user_id', pid ?? "");
+    print(isData);
+  }
+
+  Future<String> getPartnerId() async {
+    _prefs = await SharedPreferences.getInstance();
+    String? id = _prefs!.getString('partner_user_id');
+    print('Partner ID : $id');
+    return id ?? "";
   }
 
   static setToken(String? token) async {
@@ -63,30 +79,39 @@ class Prefrence {
     return status ?? false;
   }
 
-  Future<bool> setConsent(bool? value) async {
-    _prefs = await SharedPreferences.getInstance();
-    bool consent = await _prefs!.setBool('consent', value!);
-    return consent;
-  }
 
-  Future<bool> getConsent() async {
-    _prefs = await SharedPreferences.getInstance();
-    bool? userConsent = _prefs!.getBool("consent");
-    return userConsent ?? false;
-  }
 
-  Future<bool?> setUserPhoneNumber(String? value) async {
+
+
+  static setUserEmail(String? value) async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
     _prefs = await SharedPreferences.getInstance();
-    bool? userData = await _prefs!.setString("userPhoneNumber", value!);
-    debugPrint("userPhoneNumber $userData");
+    bool? userData = await _prefs.setString("user_email", value!);
+    debugPrint("user_email $userData");
     return userData;
   }
 
-  Future<String> getUserPhoner() async {
+  Future<String> getUserEmail() async {
     _prefs = await SharedPreferences.getInstance();
-    String? user = _prefs!.getString("userPhoneNumber");
-    print('userPhoneNumber $user');
+    String? user = _prefs!.getString("user_email");
+    print('user_email $user');
     return user ?? "";
+  }
+
+
+  static setUserWishLimit(int? value) async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs = await SharedPreferences.getInstance();
+    bool? userData = await _prefs.setInt("user_wishlist", value!);
+    debugPrint("user_wishlist $userData");
+    return userData;
+  }
+
+  Future<int> getUserWishLimit() async {
+    _prefs = await SharedPreferences.getInstance();
+    int? user = _prefs!.getInt("user_wishlist");
+    print('user_wishlist $user');
+    return user ?? 0;
   }
 
   Future<bool> clearData() async {

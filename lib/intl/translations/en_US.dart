@@ -10,7 +10,7 @@ const en_US = <String, String>{
   'change_language': 'Change Language',
 
   'check_your_mail': 'Check your Email',
-  'reset_password_link': 'We have sent you a reset password link on \n your registered email address.',
+  'reset_password_link': 'We have sent you a reset password \n link on  your registered email address.',
   'go_to_mail': 'Go to Email',
 
   'skip_btn': 'Skip',
@@ -19,6 +19,10 @@ const en_US = <String, String>{
   'forgot_password': 'Forgot Password',
   'reset_pass_desc': 'Please enter your registered email to reset your password.',
 
+  'user_first_name': 'First Name',
+  'user_last_name': 'Last Name',
+  'user_address': 'Address',
+  'user_dob': 'Select DOB',
   'email_id': 'Email ID',
   'send_code': 'Send Code',
   'login':'Login',
@@ -56,8 +60,21 @@ const en_US = <String, String>{
   'connect_play':'Connect to PLay',
 
   'calendar_head':'Calendar',
-
-
+  'setting_title':'Settings',
+  'profile':'Profile',
+  'achievements':'Achievements',
+  'evaluation':'Evaluations',
+  'select_lang':'Select Language',
+  'notifications':'Notifications',
+  'change_password':'Change Password',
+  'share_link':'Share link',
+  'logout':'Logout',
+  'personal_setting':'Personal Settings',
+  'pick_image_camera':'Open Camera',
+  'pick_image_gallery':'Open Gallery',
+  'achievement_desc':'Complete all \n achievements to earn \n the exclusive',
+  'add_evolutions':'Add Evolutions',
+  'add_evolution_des':'How would you evaluate the relationship in the last week?'
 
 
 };

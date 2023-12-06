@@ -28,7 +28,11 @@ class IntlKeys {
   static String get forgot_password => 'forgot_password';
   static String get reset_pass_desc => 'reset_pass_desc';
   static String get email_id => 'email_id';
-  static String get send_code => 'reset_pass_desc';
+  static String get user_first_name => 'user_first_name';
+  static String get user_last_name => 'user_last_name';
+  static String get user_address => 'user_address';
+  static String get user_dob => 'user_dob';
+  static String get send_code => 'send_code';
   static String get login => 'login';
   static String get dont_have_account => 'dont_have_account';
   static String get register => 'register';
@@ -64,6 +68,21 @@ class IntlKeys {
   static String get connect_play => 'connect_play';
 
   static String get calendar_head => 'calendar_head';
+  static String get setting_title => 'setting_title';
+  static String get profile => 'profile';
+  static String get achievements => 'achievements';
+  static String get evaluation => 'evaluation';
+  static String get select_lang => 'select_lang';
+  static String get notifications => 'notifications';
+  static String get change_password => 'change_password';
+  static String get share_link => 'share_link';
+  static String get logout => 'logout';
+  static String get personal_setting => 'personal_setting';
+  static String get pick_image_camera => 'pick_image_camera';
+  static String get pick_image_gallery => 'pick_image_gallery';
+  static String get achievement_desc => 'achievement_desc';
+  static String get add_evolutions => 'add_evolutions';
+  static String get add_evolution_des => 'add_evolution_des';
 
 
 

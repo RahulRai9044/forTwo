@@ -2,7 +2,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_two/intl/intl_keys.dart';
 import 'package:for_two/modules/auth/controller/register_controller.dart';
 import 'package:for_two/modules/auth/view/login_screen.dart';
@@ -18,54 +17,114 @@ import 'package:get/get.dart';
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
+  Future<void> _selectDate(BuildContext context,RegisterController controller) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: buttonFirstColor, // <-- SEE HERE
+                onPrimary: Colors.white, // <-- SEE HERE
+                onSurface: Colors.blueAccent, // <-- SEE HERE
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  primary: buttonSecondColor, // button text color
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
+        initialDate: controller.selectedDate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(1920),
+        lastDate: DateTime(2016));
+    if (picked != null) controller.selectedDate = picked;
+      controller.selectDate(controller.selectedDate);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         body: GetBuilder<RegisterController>(
+
             init: RegisterController(),
             builder: (controller) {
-              return SingleChildScrollView(
+              return controller.isLoading
+                  ? const Center(
+                child: CircularProgressIndicator(
+                  valueColor:
+                  AlwaysStoppedAnimation<Color>(Color(0xFFDF1721)),
+                ),
+              ): SingleChildScrollView(
                 child: Column(
                   children: [
                     RegistrationTopGradient(),
-                    SizedBox(height: size.height * 0.04),
-
-                    const SizedBox(height: 20.0),
+                     SizedBox(height: size.height * 0.05),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Form(
                         key: controller.formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
-                            InputTextField(
-                                textColors: kTextColor,
-                                text: IntlKeys.full_name.tr,
-                                controller: controller.userNameController,
-                                inputType: TextInputType.name,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return IntlKeys.required.tr;
-                                  }
-                                  return null;
-                                }),
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: InputTextField(
+                                    textColors: kTextColor,
+                                    text: IntlKeys.user_first_name.tr,
+                                    controller: controller.userFirstName,
+                                    inputType: TextInputType.text,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return IntlKeys.required.tr;
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Flexible(
+                                  child: InputTextField(
+                                    textColors: kTextColor,
+                                    text: IntlKeys.user_last_name.tr,
+                                    controller: controller
+                                        .userLastName,
+                                    inputType: TextInputType.text,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return IntlKeys.required.tr;
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+
                             const SizedBox(height: 20),
 
 
                             InputTextField(
                                 textColors: kTextColor,
                                 text: IntlKeys.email.tr,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(10)
-                                ],
-                                controller: controller.userPhoneNumberController,
-                                inputType: TextInputType.number,
+                                controller: controller.emailController,
+                                inputType: TextInputType.text,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return IntlKeys.required.tr;
+                                  }else if (!GetUtils.isEmail(value)) {
+                                    return IntlKeys.correct_email.tr;
                                   }
                                   return null;
                                 }),
@@ -75,219 +134,124 @@ class RegisterScreen extends StatelessWidget {
                             InputTextField(
                               textColors: kTextColor,
                               text: IntlKeys.phone_number.tr,
-                              controller: controller.emailController,
-                              inputType: TextInputType.emailAddress,
+                              controller: controller.userPhoneNumberController,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10)
+                              ],
+                              inputType: TextInputType.number,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return IntlKeys.required.tr;
-                                } else if (!GetUtils.isEmail(value)) {
-                                  return IntlKeys.correct_email.tr;
                                 }
                                 return null;
                               },
                             ),
 
                             const SizedBox(height: 20),
+                            InputTextField(
+                                textColors: kTextColor,
+                                text: IntlKeys.user_dob.tr,
+                                controller: controller.userDateOfBirthController,
+                                inputType: TextInputType.text,
+                                icon: Icons.calendar_today,
+                                onTap: (){
+                                  _selectDate(context,controller);
 
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      InputTextField(
-                                        textColors: kTextColor,
-                                        text: IntlKeys.country.tr,
-                                        controller:
-                                            controller.passwordController,
-                                        inputType: TextInputType.text,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return IntlKeys.required.tr;
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      InputTextField(
-                                        textColors: kTextColor,
-                                        text: IntlKeys.cnf_password.tr,
-                                        controller: controller
-                                            .confirmPasswordController,
-                                        inputType: TextInputType.text,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return IntlKeys.required.tr;
-                                          } else {
-                                            return null;
-                                          }
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return IntlKeys.required.tr;
+                                  }
+                                  return null;
+                                }
+                           ),
 
                             const SizedBox(height: 20),
 
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      InputTextField(
-                                        textColors: kTextColor,
-                                        text: IntlKeys.password.tr,
-                                        controller:
-                                        controller.passwordController,
-                                        inputType: TextInputType.text,
-                                        isVisible: controller.isObsecure,
-                                        icon: controller.isObsecure
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        onTap: controller.showPassword,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return IntlKeys.required.tr;
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      InputTextField(
-                                        textColors: kTextColor,
-                                        text: IntlKeys.cnf_password.tr,
-                                        controller: controller
-                                            .confirmPasswordController,
-                                        inputType: TextInputType.text,
-                                        isVisible: controller.isObsecureCNF,
-                                        icon: controller.isObsecureCNF
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        onTap: controller.showPasswordCNF,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return IntlKeys.required.tr;
-                                          } else if (value !=
-                                              controller
-                                                  .passwordController.text) {
-                                            return IntlKeys.pass_not_match_try.tr;
-                                          } else {
+                            Visibility(
+                              visible: controller.passwordFieldVisibility,
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        InputTextField(
+                                          textColors: kTextColor,
+                                          text: IntlKeys.password.tr,
+                                          controller:
+                                          controller.passwordController,
+                                          inputType: TextInputType.text,
+                                          isVisible: controller.isObsecure,
+                                          icon: controller.isObsecure ? Icons.visibility_off : Icons.visibility,
+                                          onTap: controller.showPassword,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return IntlKeys.required.tr;
+                                            }
                                             return null;
-                                          }
-                                        },
-                                      ),
-                                    ],
+                                          },
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        InputTextField(
+                                          textColors: kTextColor,
+                                          text: IntlKeys.cnf_password.tr,
+                                          controller: controller
+                                              .confirmPasswordController,
+                                          inputType: TextInputType.text,
+                                          isVisible: controller.isObsecureCNF,
+                                          icon: controller.isObsecureCNF
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                          onTap: controller.showPasswordCNF,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return IntlKeys.required.tr;
+                                            } else if (value !=
+                                                controller
+                                                    .passwordController.text) {
+                                              return IntlKeys.pass_not_match_try.tr;
+                                            } else {
+                                              return null;
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
 
                             const SizedBox(height: 20),
-                            CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue:IntlKeys.gender.tr),
+                            CustomizedTextWidget(color: kTextColor, fontSize: 15, textValue:IntlKeys.gender.tr),
                             const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    Radio(
-                                      value: 1,
-                                      groupValue: controller.id,
-                                      onChanged: (val) {
-
-                                        controller.radioButtonItem = IntlKeys.female.tr;
-                                          controller.id = 1;
-                                        controller.update();
-                                      },
-                                    ),
-
-                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.female.tr),
-
-                                  ],
-                                ),
-
-
-                                Row(
-                                  children: [
-                                    Radio(
-                                      value: 2,
-                                      groupValue: controller.id,
-                                      onChanged: (val) {
-                                          controller.radioButtonItem = IntlKeys.male.tr;
-                                          controller.id = 2;
-                                          controller.update();
-                                      },
-                                    ),
-
-                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.male.tr),
-                                  ],
-                                ),
-
-
-                                Row(
-                                  children: [
-                                    Radio(
-                                      value: 3,
-                                      groupValue: controller.id,
-                                      onChanged: (val) {
-
-                                          controller.radioButtonItem = IntlKeys.other.tr;
-                                          controller.id = 3;
-                                          controller.update();
-
-                                      },
-                                    ),
-                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue: IntlKeys.other.tr),
-                                  ],
-                                ),
-
-                                Row(
-                                  children: [
-                                    Radio(
-                                      value: 3,
-                                      groupValue: controller.id,
-                                      onChanged: (val) {
-
-                                        controller.radioButtonItem = IntlKeys.pnots.tr;
-                                        controller.id = 3;
-                                        controller.update();
-
-                                      },
-
-                                    ),
-
-                                    CustomizedTextWidget(color: kTextColor ?? Colors.grey.shade700, fontSize: 18, textValue:IntlKeys.pnots.tr),
-                                  ],
-                                ),
-
-
-                              ],
-                            ),
+                            DropdownButton(
+                                isExpanded: true,
+                                hint: CustomizedTextWidget(color: kTextColor, fontSize: 18, textValue: "Select Gender"),
+                                onChanged: (newValue) {
+                                  controller.selectedDrowpdown=newValue.toString();
+                                  controller.update();
+                                },
+                                value: controller.selectedDrowpdown,
+                                items: [
+                                  for (var data in controller.dropdownText)
+                                    DropdownMenuItem(
+                                      child: CustomizedTextWidget(color: kTextColor, fontSize: 15, textValue: data),
+                                      value: data,
+                                    )
+                                ]),
 
 
                           ],
@@ -295,7 +259,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: size.height * 0.1),
+                    SizedBox(height: size.height * 0.05),
 
 
                     Padding(
@@ -316,9 +280,8 @@ class RegisterScreen extends StatelessWidget {
 
                                   if(controller.passwordController.text == controller.confirmPasswordController.text){
 
-                                    EasyLoading.show(status: IntlKeys.registration_started.tr);
-                                    await controller.registerUsingEmailPassword(name:controller.userNameController.text,email: controller.emailController.text,password: controller.passwordController.text,userPhoneNumber: controller.userPhoneNumberController.text);
-                                    EasyLoading.dismiss();
+                                    await controller.registerNewUserData();
+
 
                                   }else{
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:for_two/utils/app_theme.dart';
 
 class InputTextField extends StatelessWidget {
   final String? hintText;
@@ -45,44 +44,47 @@ class InputTextField extends StatelessWidget {
             color: textColors,
             fontSize: 15,
             fontWeight: FontWeight.w600,
-            fontFamily: "Montserrat",
+            fontFamily: "Poppins-Regular",
           ),
         ),
-        const SizedBox(height: 10),
-        TextFormField(
-          textAlignVertical: TextAlignVertical.bottom,
-          inputFormatters: inputFormatters,
-          onTap: onPressed,
-          onChanged: onChange,
-          controller: controller,
-          keyboardType: inputType,
-          obscureText: isVisible,
-          readOnly: readOnly,
-          validator: validator,
-          decoration: InputDecoration(
-              isDense: true,
-              filled: false,
-              contentPadding: EdgeInsets.symmetric(vertical: 5), // adjust as you need
-              errorBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+        Container(
+          child: TextFormField(
+            textAlignVertical: TextAlignVertical.bottom,
+            inputFormatters: inputFormatters,
+            onTap: onPressed,
+            onChanged: onChange,
+            controller: controller,
+            keyboardType: inputType,
+            obscureText: isVisible,
+            readOnly: readOnly,
+            style: TextStyle(fontSize: 15.0),
+            validator: validator,
+            decoration: InputDecoration(
+                isDense: true,
+                filled: false,
+                contentPadding: EdgeInsets.symmetric(vertical: 5), // adjust as you need
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color:Color(0xFFDBDBDB)),
+                ),
+              suffixIconConstraints: BoxConstraints(
+                minWidth: 2,
+                minHeight: 2,
               ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color:Color(0xFFDBDBDB)),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color:Color(0xFFDBDBDB)),
-              ),
-            suffixIconConstraints: BoxConstraints(
-              minWidth: 2,
-              minHeight: 2,
-            ),
 
-            suffixIcon: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: IconButton(
-                icon: Icon(icon),
-                onPressed: onTap,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: IconButton(
+                  icon: Icon(icon),
+                  onPressed: onTap,
+                ),
               ),
+
             ),
           ),
         ),

@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,14 +19,24 @@ import 'intl/intl_keys.dart';
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
+
+
+  //Assign publishable key to flutter_stripe
+  Stripe.publishableKey = "pk_test_51OJs9ESELNqdqFaiaBhFc5RcNj36Y1SlItOoCofrphyyZT9HPKIFYaB7JUIYf1jRWEITyutOGy1WkHeITlBOUwEN00YagcKlzG";
+
+  //Load our .env file that contains our Stripe Secret key
+  await dotenv.load(fileName: "assets/.env");
+
   if (Platform.isAndroid) {
+
+
     await Firebase.initializeApp(
-        name: "fortwo",
+        name: "ForTwoSouls",
         options: const FirebaseOptions(
-          apiKey: "AIzaSyCB628qsRRaRJW_zTJbySS4z-OE1DdE6uU",
-          appId: "1:862903860102:android:70d82f844ac2cc4cfb4a07",
-          messagingSenderId: "862903860102",
-          projectId: "fortwo-74c79",
+          apiKey: "AIzaSyB9qL9REbouhZ8DY04yxUkRmVfVq8rnRGk",
+          appId: "1:433287989665:android:846962c12af42714a663e0",
+          messagingSenderId: "433287989665",
+          projectId: "fortwosouls-6c36e",
         ));
 
 

@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>862903860102-lnlhg6ji5e67e1811ioprsggg5f8hta3.apps.googleusercontent.com</string>
+	<string>433287989665-madm0ob44en2ass89qe1boq6nas86vsh.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.862903860102-lnlhg6ji5e67e1811ioprsggg5f8hta3</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>862903860102-ov33aep7amaa6od9te3coa3oakg2aii7.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.433287989665-madm0ob44en2ass89qe1boq6nas86vsh</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBZpSP7AbUB9EsQtPPGyK2fqWO-2byGjhY</string>
+	<string>AIzaSyBQ-vPAxB8v1OpYMyfC05eVJ-2qeY-fKA0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>862903860102</string>
+	<string>433287989665</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.forTwo</string>
+	<string>com.forTwo.souls</string>
 	<key>PROJECT_ID</key>
-	<string>fortwo-74c79</string>
+	<string>fortwosouls-6c36e</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fortwo-74c79.appspot.com</string>
+	<string>fortwosouls-6c36e.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:862903860102:ios:2267ff029c1d7288fb4a07</string>
+	<string>1:433287989665:ios:069afa99dd8fc919a663e0</string>
 </dict>
 </plist>
